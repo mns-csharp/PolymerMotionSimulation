@@ -41,7 +41,7 @@
     <Compile Include="EnergyFunction.cs" />
     <Compile Include="GlobalConstants.cs" />
     <Compile Include="ListRandom.cs" />
-    <Compile Include="Point2D.cs" />
+    <Compile Include="Point2d.cs" />
     <Compile Include="PolymerChain.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
