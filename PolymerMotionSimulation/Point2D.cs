@@ -7,7 +7,7 @@ namespace PolymerSimulation__from__python
     public struct Point2d : IEquatable<Point2d>
     {
         public readonly double X;
-        public readonly double Y;
+        public readonly double Y; 
         
         #region constructor
         public Point2d(double x, double y)
