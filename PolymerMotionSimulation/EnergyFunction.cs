@@ -8,8 +8,7 @@ namespace PolymerSimulation__from__python
     {
         public static double LennardJonesPairPotential(Point2d one, Point2d two)
         {
-            double r_square = Point2d.DistanceSquare(one, two);
-
+            double r_square = one.GetSquaredDistance(two);
 
             return 0;
         }

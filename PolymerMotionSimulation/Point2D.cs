@@ -8,7 +8,7 @@ namespace PolymerSimulation__from__python
     {
         public readonly double X;
         public readonly double Y; 
-        
+
         #region constructor
         public Point2d(double x, double y)
         {
@@ -17,16 +17,15 @@ namespace PolymerSimulation__from__python
         }
         #endregion
 
-        public static double Distance(Point2d left, Point2d right)
+        public double GetDistance(Point2d otherPoint)
         {
-            return Math.Sqrt(((right.X - left.X)*(right.X - left.X)) 
-                + ((right.Y - left.Y)*(right.Y - left.Y)));
+            return Math.Sqrt(GetSquaredDistance(otherPoint));
         }
 
-        public static double DistanceSquare(Point2d left, Point2d right)
+        public double GetSquaredDistance(Point2d otherPoint)
         {
-            return ((right.X - left.X) * (right.X - left.X))
-                + ((right.Y - left.Y) * (right.Y - left.Y));
+            return ((otherPoint.X - X) * (otherPoint.X - X))
+                + ((otherPoint.Y - Y) * (otherPoint.Y - Y));
         }
 
         #region public static Point2d GetRandomPoint(Point2d currentLocation, double radius)
