@@ -68,12 +68,13 @@ namespace PolymerMotionSimulation
             return this.Location.GetHashCode() * 67 + Name.GetHashCode(); // 67 = some prime number
         }
         public static bool operator ==(Bead a1, Bead a2)
-        {
-            return a1.Equals(a2);
+        {            
+            if (ReferenceEquals(a1, a2)) return true;
+            else return false;
         }
         public static bool operator !=(Bead a1, Bead a2)
         {
-            return !a1.Equals(a2);
+            return !(a1==a2);
         } 
         #endregion
     }

@@ -4,15 +4,17 @@ using System.Text;
 
 namespace PolymerMotionSimulation
 {
-    class Program
+    public class Program
     {
+        public const int polymerLength = 30;
+        public const double beadDistance = 3.8;
+        public static PolymerChain polymerChain;
+        public const int totalIterations = 1000000;
+        public const int writeToFileIterations = 100;
+        
         public static void Main()
         {
-            const int polymerLength = 30;
-            const double beadDistance = 3.8;
-            
-            //create polymer chain
-            PolymerChain polymerChain = new PolymerChain(polymerLength, beadDistance);
+            polymerChain = new PolymerChain(polymerLength, beadDistance);
             Random random = new Random();
             for (int i = 0; i < polymerLength; i++)
             {
@@ -20,12 +22,11 @@ namespace PolymerMotionSimulation
                 polymerChain.AddBead(randomString);
             }
 
-            const int totalIterations = 1000000;
-            const int writeToFileIterations = 100;
             for (int i = 0; i < (totalIterations / writeToFileIterations); i++)
             {
                 Simulation.SimulateMotion(polymerChain, writeToFileIterations);
                 double totalPotential = polymerChain.GetTotalPotential();
+                Console.WriteLine(totalPotential);
             }
         }
     }

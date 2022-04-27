@@ -26,25 +26,47 @@ namespace PolymerMotionSimulation
             }
 
             //Obtain the last bead of the chain.
-            Bead lastBead = beadsList[beadsList.Count];
-            //obtain a random location at distance 3.8.
-            Point2d newLocation;
-
-            // generate new random point until it is inside the simulation-box.
-            do
+            Bead lastBead = null;
+            try
             {
-                newLocation = Point2d.GetRandomPoint(lastBead.Location, BeadDistance);
+                lastBead = beadsList[beadsList.Count - 1];
             }
-            while (!(GlobalConstants.BottomLeft.X <= newLocation.X && GlobalConstants.BottomRight.X >= newLocation.X) 
-                || !(GlobalConstants.BottomLeft.Y <= newLocation.Y && GlobalConstants.TopLeft.Y >= newLocation.Y));
-            
-            // create a new bead.
-            Bead newBead = new Bead();
-            newBead.Name = name;
-            newBead.SetLocation(newLocation);
+            catch
+            {
+                
+            }
 
-            //add the new bead to the polymer chain
-            beadsList.Add(newBead);
+            if (lastBead != null)
+            {
+                //obtain a random location at distance 3.8.
+                Point2d newLocation;
+
+                // generate new random point until it is inside the simulation-box.
+                do
+                {
+                    newLocation = lastBead.GetRandomPoint(BeadDistance);
+                }
+                while (!(GlobalConstants.BottomLeft.X <= newLocation.X && GlobalConstants.BottomRight.X >= newLocation.X)
+                    || !(GlobalConstants.BottomLeft.Y <= newLocation.Y && GlobalConstants.TopLeft.Y >= newLocation.Y));
+
+                // create a new bead.
+                Bead newBead = new Bead();
+                newBead.Name = name;
+                newBead.SetLocation(newLocation);
+
+                //add the new bead to the polymer chain
+                beadsList.Add(newBead);
+            }
+            else
+            {
+                // create a new bead.
+                Bead newBead = new Bead();
+                newBead.Name = name;
+                newBead.SetLocation(new Point2d(0,0));
+
+                //add the new bead to the polymer chain
+                beadsList.Add(newBead);
+            }
         }
 
         public Bead this[int index]
@@ -119,13 +141,19 @@ namespace PolymerMotionSimulation
             for (int i=0; i<beadsList.Count; i++)
             {
                 Bead item_i = beadsList[i];
-                Bead item_i_plus_1 = beadsList[i + 1];
+                Bead item_i_plus_1 = null;
 
-                if (i != beadsList.Count-1)
+                try
                 {
-                    // calculate total spring energy.
-                    totalSpringPotential += item_i.GetHarmonicPotential(item_i_plus_1);
+                    item_i_plus_1 = beadsList[i + 1];
+
+                    if (i != beadsList.Count - 1)
+                    {
+                        // calculate total spring energy.
+                        totalSpringPotential += item_i.GetHarmonicPotential(item_i_plus_1);
+                    }
                 }
+                catch { }
 
                 for (int j= 0; j < beadsList.Count; j++)
                 {
