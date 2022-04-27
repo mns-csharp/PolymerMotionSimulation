@@ -18,7 +18,7 @@ namespace PolymerMotionSimulationGUI
         public const int totalIterations = 1000000;
         public const int writeToFileIterations = 100;
         private Thread t;
-        private RollingPointPairList ppList = new RollingPointPairList(30);
+        private PointPairList ppList = new PointPairList();
 
         public SimulationGuiForm()
         {
@@ -26,7 +26,7 @@ namespace PolymerMotionSimulationGUI
 
             DrawBlackCanvas();
 
-            zedGraphControl1.GraphPane.AddCurve("", ppList, Color.Black);
+            zedGraphControl1.GraphPane.AddCurve("", ppList, Color.Red, SymbolType.None);
 
             polymerChain = new PolymerChain(polymerLength, beadDistance);
             t = new Thread(new ThreadStart(RunSimulationThread));
