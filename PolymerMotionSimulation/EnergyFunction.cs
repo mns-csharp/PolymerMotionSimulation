@@ -12,8 +12,8 @@ namespace PolymerMotionSimulation
             double r_power_6 = Math.Pow(r_square, 3);
             double r_power_12 = r_power_6 * r_power_6;
 
-            if (r_power_12 == 0) r_power_12 = 1;
-            if (r_power_6 == 0) r_power_6 = 1;
+            if (r_power_12 == 0) r_power_12 = 0.000001;
+            if (r_power_6 == 0) r_power_6 = 0.000001;
 
             double term_12 = GlobalConstants.SigmaPower12 / r_power_12;
             double term_6 = GlobalConstants.SigmaPower6 / r_power_6;

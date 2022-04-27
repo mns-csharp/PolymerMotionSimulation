@@ -82,29 +82,7 @@ namespace PolymerMotionSimulation
         #region double GetPotential(Bead bead)
         public double GetPotential(Bead bead)
         {
-            double potential = 0;
-            for (int i = 0; i < beadsList.Count; i++)
-            {
-                Bead item = beadsList[i];
-                if (bead != item)
-                {
-                    potential += bead.GetPairPotential(item);
-                }
-                else
-                {
-                    try
-                    {
-                        potential += bead.GetHarmonicPotential(beadsList[i - 1]);
-                    }
-                    catch { }
-
-                    try
-                    {
-                        potential += bead.GetHarmonicPotential(beadsList[i + 1]);
-                    }
-                    catch { }
-                }
-            }
+            double potential = GetPotential(bead.Location);
 
             return potential;
         } 
