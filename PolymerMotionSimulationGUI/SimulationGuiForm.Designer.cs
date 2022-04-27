@@ -94,7 +94,7 @@
             // 
             // paintBoxTimer
             // 
-            this.paintBoxTimer.Interval = 1;
+            this.paintBoxTimer.Interval = 25;
             this.paintBoxTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // SimulationGuiForm

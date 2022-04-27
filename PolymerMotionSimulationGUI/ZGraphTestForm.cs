@@ -36,6 +36,7 @@ namespace PolymerMotionSimulationGUI
 
             zedGraphControl1.GraphPane.AddCurve("", ppList, Color.Black);
             zedGraphControl1.AxisChange();
+            zedGraphControl1.Invalidate();
         }
     }
 }

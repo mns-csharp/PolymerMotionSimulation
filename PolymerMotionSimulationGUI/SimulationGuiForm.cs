@@ -24,8 +24,12 @@ namespace PolymerMotionSimulationGUI
         {
             InitializeComponent();
 
+            DrawBlackCanvas();
+
+            zedGraphControl1.GraphPane.AddCurve("", ppList, Color.Black);
+
             polymerChain = new PolymerChain(polymerLength, beadDistance);
-            t = new Thread(new ThreadStart(Run));
+            t = new Thread(new ThreadStart(RunSimulationThread));
             t.Start();
             textBox1.Text = "START" + "\r\n";
         }
@@ -38,7 +42,7 @@ namespace PolymerMotionSimulationGUI
             paintBoxTimer.Start();
         }
 
-        public void Run()
+        public void RunSimulationThread()
         {            
             Random random = new Random();
             for (int i = 0; i < polymerLength; i++)
@@ -54,7 +58,7 @@ namespace PolymerMotionSimulationGUI
             }
         }
 
-        void DrawPolymerChain()
+        void DrawBlackCanvas()
         {
             Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
             using (Graphics g = Graphics.FromImage(bmp))
@@ -62,6 +66,11 @@ namespace PolymerMotionSimulationGUI
                 g.Clear(Color.Black);
             }
             pictureBox1.Image = bmp;
+        }
+
+        void DrawPolymerChain()
+        {
+            DrawBlackCanvas();
 
             using (Graphics g = Graphics.FromImage(pictureBox1.Image))
             {
@@ -80,36 +89,31 @@ namespace PolymerMotionSimulationGUI
         }
 
         
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             DrawPolymerChain();
 
-            textBox1.Text += polymerChain.ToString() + "\r\n\r\n";
+            textBox1.Text += polymerChain.GetTotalPotential() + "\r\n";
             textBox1.SelectionStart = textBox1.Text.Length;
             textBox1.ScrollToCaret();
 
             DrawZGraph();            
         }
 
-        private void SimulationGuiForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            t.Abort();
-        }
-
         int totalX = 0;
         void DrawZGraph()
         {
-            //double lenumerator = polymerChain.GetTotalPotential();
-            //ppList.Add(totalX++, lenumerator);
-            //ppList.Clear();
-            List<Bead> list = polymerChain.GetList();
-            foreach (var item in list)
-            {
-                ppList.Add(item.Location.X, item.Location.Y);
-            }
+            double totalPotential = polymerChain.GetTotalPotential();
+            ppList.Add(totalX++, totalPotential);  
 
-            zedGraphControl1.GraphPane.AddBar("", ppList, Color.Black);
             zedGraphControl1.AxisChange();
+            zedGraphControl1.Invalidate();
+        }
+
+        private void SimulationGuiForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            t.Abort();
         }
     }
 }
