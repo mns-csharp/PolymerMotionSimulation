@@ -7,8 +7,8 @@
     <ProjectGuid>{EC4B3471-7E83-4F40-8C46-ADD0B5F1814B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PolymerSimulation__from__python</RootNamespace>
-    <AssemblyName>PolymerSimulation__from__python</AssemblyName>
+    <RootNamespace>PolymerMotionSimulation</RootNamespace>
+    <AssemblyName>PolymerMotionSimulation</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,7 +46,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomStringGen.cs" />
-    <Compile Include="SimulationContrioller.cs" />
+    <Compile Include="Simulation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

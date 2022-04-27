@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PolymerSimulation__from__python
+namespace PolymerMotionSimulation
 {
     public class Bead: IEquatable<Bead>
     {
@@ -33,6 +33,20 @@ namespace PolymerSimulation__from__python
         {
             return EnergyFunction.HarmonicPotential(this.Location, otherLocation);
         }
+
+        #region public static Point2d GetRandomPoint(double radius)
+        public Point2d GetRandomPoint(double radius)
+        {
+            Random random = new Random();
+            double r = radius * Math.Sqrt(random.NextDouble());
+            double theta = random.NextDouble() * 2 * Math.PI;
+
+            double x = Location.X + r * Math.Cos(theta);
+            double y = Location.Y + r * Math.Sin(theta);
+
+            return new Point2d(x, y);
+        }
+        #endregion
 
         #region equality comparison
         /// <summary>

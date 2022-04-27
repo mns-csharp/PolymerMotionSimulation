@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace PolymerSimulation__from__python
+namespace PolymerMotionSimulation
 {
     /// <summary>
     /// Random string generators.

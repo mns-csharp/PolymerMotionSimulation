@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PolymerSimulation__from__python
+namespace PolymerMotionSimulation
 {
     public struct Point2d : IEquatable<Point2d>
     {
@@ -28,19 +28,7 @@ namespace PolymerSimulation__from__python
                 + ((otherPoint.Y - Y) * (otherPoint.Y - Y));
         }
 
-        #region public static Point2d GetRandomPoint(Point2d currentLocation, double radius)
-        public static Point2d GetRandomPoint(Point2d currentLocation, double radius)
-        {
-            Random random = new Random();
-            double r = radius * Math.Sqrt(random.NextDouble());
-            double theta = random.NextDouble() * 2 * Math.PI;
-
-            double x = currentLocation.X + r * Math.Cos(theta);
-            double y = currentLocation.Y + r * Math.Sin(theta);
-
-            return new Point2d(x, y);
-        } 
-        #endregion
+        
 
         #region equality comparison implementations
         public override bool Equals(object other)

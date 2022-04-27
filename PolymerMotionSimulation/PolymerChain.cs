@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PolymerSimulation__from__python
+namespace PolymerMotionSimulation
 {
     public class PolymerChain
     {
@@ -50,6 +50,64 @@ namespace PolymerSimulation__from__python
         public Bead this[int index]
         {
             get { return beadsList[index]; }
+        }
+
+        public double GetPotential(Bead bead)
+        {
+            double potential = 0;
+            for (int i = 0; i < beadsList.Count - 1; i++)
+            {
+                Bead item = beadsList[i];
+                if (bead != item)
+                {
+                    potential += bead.GetPairPotential(item);
+                }
+                else
+                {
+                    try
+                    {
+                        potential += bead.GetHarmonicPotential(beadsList[i - 1]);
+                    }
+                    catch { }
+
+                    try
+                    {
+                        potential += bead.GetHarmonicPotential(beadsList[i + 1]);
+                    }
+                    catch { }
+                }
+            }
+
+            return potential;
+        }
+
+        public double GetPotential(Point2d newPosition)
+        {
+            double potential = 0;
+            for (int i = 0; i < beadsList.Count - 1; i++)
+            {
+                Bead item = beadsList[i];
+                if (item.Location != newPosition)
+                {
+                    potential += item.GetPairPotential(newPosition);
+                }
+                else
+                {
+                    try
+                    {
+                        potential += item.GetHarmonicPotential(newPosition);
+                    }
+                    catch { }
+
+                    try
+                    {
+                        potential += item.GetHarmonicPotential(beadsList[i + 1]);
+                    }
+                    catch { }
+                }
+            }
+
+            return potential;
         }
 
         public double GetTotalPotential()

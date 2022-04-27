@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PolymerSimulation__from__python
+namespace PolymerMotionSimulation
 {
     public static class EnergyFunction
     {

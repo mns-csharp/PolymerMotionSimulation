@@ -1,42 +1,26 @@
 ﻿using System;
 
-namespace PolymerSimulation__from__python
+namespace PolymerMotionSimulation
 {
-    public class SimulationContrioller
+    public class Simulation
     {
-        public static void SimulateMotion(PolymerChain polymerChain)
+        public static void SimulateMotion(PolymerChain polymerChain, int iterations)
         {
             Random random = new Random();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < iterations; i++)
             {
                 // select a random bead from the chain.
                 int index = random.Next(0, polymerChain.MaxCapacity-1);
                 Bead bead = polymerChain[index];
-                Bead leftBead = null;
-                Bead rightBead = null;
                 
-                // calculate its harmonic potential
-                double potentialBefore = 0;
-
-                try
-                { 
-                    leftBead = polymerChain[index - 1];
-                    potentialBefore += bead.GetHarmonicPotential(leftBead);
-                }
-                catch {}
-
-                try
-                {
-                    rightBead = polymerChain[index + 1];
-                    potentialBefore += bead.GetHarmonicPotential(rightBead);
-                }
-                catch {}
+                // calculate its potential
+                double potentialBefore = polymerChain.GetPotential(bead);                
                 
                 // propose a new location for the chosed bead.
-                Point2d newLocation = Point2d.GetRandomPoint(bead.Location, polymerChain.BeadDistance);
+                Point2d newLocation = bead.GetRandomPoint(polymerChain.BeadDistance);
                 
-                // obtain old potential of the bead.
-                double potentialAfter = bead.GetPairPotential(newLocation);
+                // obtain new potential of the bead.
+                double potentialAfter = polymerChain.GetPotential(newLocation);
 
                 if (potentialBefore > potentialAfter)
                 {
