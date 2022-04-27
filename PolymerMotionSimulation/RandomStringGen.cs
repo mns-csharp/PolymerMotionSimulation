@@ -8,7 +8,7 @@ namespace PolymerMotionSimulation
     /// <summary>
     /// Random string generators.
     /// </summary>
-    static class RandomStringGen
+    public static class RandomStringGen
     {
         /// <summary>
         /// Get random string of 11 characters.

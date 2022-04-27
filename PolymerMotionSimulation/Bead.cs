@@ -48,6 +48,16 @@ namespace PolymerMotionSimulation
         }
         #endregion
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append(Name + " ");
+            sb.Append(Location.ToString());
+
+            return sb.ToString();
+        }
+
         #region equality comparison
         /// <summary>
         /// Equality comparisons

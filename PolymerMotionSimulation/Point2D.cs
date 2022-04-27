@@ -28,7 +28,14 @@ namespace PolymerMotionSimulation
                 + ((otherPoint.Y - Y) * (otherPoint.Y - Y));
         }
 
-        
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("(" + X + " , " + Y + ")");
+
+            return sb.ToString();
+        }
 
         #region equality comparison implementations
         public override bool Equals(object other)

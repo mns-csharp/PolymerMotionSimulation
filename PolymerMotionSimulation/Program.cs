@@ -19,14 +19,14 @@ namespace PolymerMotionSimulation
             for (int i = 0; i < polymerLength; i++)
             {
                 string randomString = RandomStringGen.GetRandomString();
-                polymerChain.AddBead(randomString);
+                polymerChain.Add(randomString);
             }
 
             for (int i = 0; i < (totalIterations / writeToFileIterations); i++)
             {
                 Simulation.SimulateMotion(polymerChain, writeToFileIterations);
                 double totalPotential = polymerChain.GetTotalPotential();
-                //Console.WriteLine(totalPotential);
+                Console.WriteLine(i + "\n");
             }
         }
     }

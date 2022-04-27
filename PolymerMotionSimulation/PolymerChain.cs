@@ -1,24 +1,31 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace PolymerMotionSimulation
 {
-    public class PolymerChain
+    public class PolymerChain : IEnumerable<Bead>, IEnumerable
     {
+        #region properties
         public int MaxCapacity { get; private set; }
         public double BeadDistance { get; private set; }
-        private List<Bead> beadsList = null;
+        private List<Bead> beadsList = null; 
+        #endregion
 
+        #region PolymerChain(int maxBeads, double beadDistance)
         public PolymerChain(int maxBeads, double beadDistance)
         {
             beadsList = new List<Bead>();
             MaxCapacity = maxBeads;
             BeadDistance = beadDistance;
-            
-        }
 
-        public void AddBead(string name)
+        } 
+        #endregion
+
+        #region void AddBead(string name)
+        public void Add(string name)
         {
             if (beadsList.Count >= MaxCapacity)
             {
@@ -33,7 +40,7 @@ namespace PolymerMotionSimulation
             }
             catch
             {
-                
+
             }
 
             if (lastBead != null)
@@ -62,18 +69,22 @@ namespace PolymerMotionSimulation
                 // create a new bead.
                 Bead newBead = new Bead();
                 newBead.Name = name;
-                newBead.SetLocation(new Point2d(0,0));
+                newBead.SetLocation(new Point2d(0, 0));
 
                 //add the new bead to the polymer chain
                 beadsList.Add(newBead);
             }
         }
+        #endregion
 
+        #region Bead this[int index]
         public Bead this[int index]
         {
             get { return beadsList[index]; }
-        }
+        } 
+        #endregion
 
+        #region double GetPotential(Bead bead)
         public double GetPotential(Bead bead)
         {
             double potential = 0;
@@ -101,8 +112,10 @@ namespace PolymerMotionSimulation
             }
 
             return potential;
-        }
+        } 
+        #endregion
 
+        #region double GetPotential(Point2d newPosition)
         public double GetPotential(Point2d newPosition)
         {
             double potential = 0;
@@ -130,15 +143,17 @@ namespace PolymerMotionSimulation
             }
 
             return potential;
-        }
+        } 
+        #endregion
 
+        #region double GetTotalPotential()
         public double GetTotalPotential()
         {
             double totalBeadPotential = 0.0;
             double totalSpringPotential = 0.0;
-            
+
             // calculate total bead-energy
-            for (int i=0; i<beadsList.Count; i++)
+            for (int i = 0; i < beadsList.Count; i++)
             {
                 Bead item_i = beadsList[i];
                 Bead item_i_plus_1 = null;
@@ -155,19 +170,50 @@ namespace PolymerMotionSimulation
                 }
                 catch { }
 
-                for (int j= 0; j < beadsList.Count; j++)
+                for (int j = 0; j < beadsList.Count; j++)
                 {
                     if (i != j)
-                    {                        
+                    {
                         Bead item_j = beadsList[j];
                         totalBeadPotential += item_i.GetPairPotential(item_j);
-                        Console.Write(totalBeadPotential + ", ");
+                        Console.Write(totalBeadPotential + "\n");
+                        //Thread.Sleep(100);
                     }
                 }
             }
-            
+
             return totalBeadPotential + totalSpringPotential;
+        } 
+        #endregion
+
+        #region IEnumerator<Bead> implementation
+        public IEnumerator<Bead> GetEnumerator()
+        {
+            foreach (var item in beadsList)
+            {
+                yield return item;
+            };
         }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return beadsList.GetEnumerator();
+        }
+        #endregion
+
+        #region override string ToString()
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var item in beadsList)
+            {
+                sb.Append(item.ToString());
+            }
+
+            return sb.ToString();
+        } 
+        #endregion
     }
 }
 
