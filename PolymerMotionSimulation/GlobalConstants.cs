@@ -12,6 +12,7 @@ namespace PolymerMotionSimulation
         public static readonly Point2d TopLeft;
         public static readonly Point2d TopRight;
         public static readonly Point2d BottomRight;
+        public static readonly Point2d Center;
         public const int MaxLengthOfPolymer_N = 100;
         public const int BoltzmanConstant_Kb = 100;
         public const int Temperature_T = 100;
@@ -26,6 +27,7 @@ namespace PolymerMotionSimulation
 
         static GlobalConstants()
         {
+            Center = new Point2d(Width / 2, Height / 2);
             TopLeft = new Point2d(BottomLeft.X, BottomLeft.Y + Height);
             TopLeft = new Point2d(BottomLeft.X + Width, BottomLeft.Y + Height);
             BottomRight = new Point2d(BottomLeft.X + Width, BottomLeft.Y);

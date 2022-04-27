@@ -28,6 +28,12 @@ namespace PolymerMotionSimulation
                 + ((otherPoint.Y - Y) * (otherPoint.Y - Y));
         }
 
+        public Point2d GetTranslated(Point2d center)
+        {
+            return new Point2d(X + center.X, Y+center.Y);
+        }
+
+        #region override string ToString()
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -35,7 +41,8 @@ namespace PolymerMotionSimulation
             sb.Append("(" + X + " , " + Y + ")");
 
             return sb.ToString();
-        }
+        } 
+        #endregion
 
         #region equality comparison implementations
         public override bool Equals(object other)

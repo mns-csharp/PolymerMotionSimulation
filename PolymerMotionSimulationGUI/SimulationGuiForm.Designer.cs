@@ -63,6 +63,7 @@
             this.textBox1.Location = new System.Drawing.Point(13, 434);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(1022, 101);
             this.textBox1.TabIndex = 3;
             // 
@@ -93,7 +94,7 @@
             // 
             // paintBoxTimer
             // 
-            this.paintBoxTimer.Interval = 25;
+            this.paintBoxTimer.Interval = 1;
             this.paintBoxTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // SimulationGuiForm

@@ -208,7 +208,7 @@ namespace PolymerMotionSimulation
 
             foreach (var item in beadsList)
             {
-                sb.Append(item.ToString());
+                sb.Append(item.ToString() + "\r\n");
             }
 
             return sb.ToString();

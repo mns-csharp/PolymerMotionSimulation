@@ -24,6 +24,7 @@ namespace PolymerMotionSimulationGUI
             polymerChain = new PolymerChain(polymerLength, beadDistance);
             t = new Thread(new ThreadStart(Run));
             t.Start();
+            textBox1.Text = "START" + "\r\n";
         }
         protected void Abort_Click(object sender, EventArgs e)
         {
@@ -57,7 +58,7 @@ namespace PolymerMotionSimulationGUI
                 Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
                 using (Graphics g = Graphics.FromImage(bmp))
                 {
-                    g.Clear(Color.White);
+                    g.Clear(Color.Black);
                 }
                 pictureBox1.Image = bmp;
             //}
@@ -65,9 +66,12 @@ namespace PolymerMotionSimulationGUI
             {
                 foreach (Bead item in polymerChain)
                 {
-                    x = (int)Math.Round(item.Location.X, 0);
-                    y = (int)Math.Round(item.Location.Y, 0);
-                    g.FillEllipse(Brushes.Red, x, y, 10, 10);
+                    Point2d translated = item.Location.GetTranslated(GlobalConstants.Center);
+
+                    x = (int)Math.Round(translated.X, 0);
+                    y = (int)Math.Round(translated.Y, 0);
+
+                    g.FillEllipse(Brushes.Yellow, x, y, 3, 3);
                 }
             }
             pictureBox1.Invalidate();
@@ -77,7 +81,9 @@ namespace PolymerMotionSimulationGUI
         {
             Draw();
 
-            textBox1.Text = polymerChain.ToString();
+            textBox1.Text += polymerChain.ToString() + "\r\n\r\n";
+            textBox1.SelectionStart = textBox1.Text.Length;
+            textBox1.ScrollToCaret();
         }
 
         private void SimulationGuiForm_FormClosing(object sender, FormClosingEventArgs e)
