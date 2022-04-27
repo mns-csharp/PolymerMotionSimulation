@@ -15,6 +15,7 @@ namespace PolymerMotionSimulationGUI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new SimulationGuiForm());
+            //Application.Run(new ZGraphTestForm());
         }
     }
 }

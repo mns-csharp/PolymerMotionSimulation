@@ -49,12 +49,7 @@ namespace PolymerMotionSimulation
                 Point2d newLocation;
 
                 // generate new random point until it is inside the simulation-box.
-                do
-                {
-                    newLocation = lastBead.GetRandomPoint(BeadDistance);
-                }
-                while (!(GlobalConstants.BottomLeft.X <= newLocation.X && GlobalConstants.BottomRight.X >= newLocation.X)
-                    || !(GlobalConstants.BottomLeft.Y <= newLocation.Y && GlobalConstants.TopLeft.Y >= newLocation.Y));
+                newLocation = lastBead.GetRandomPoint(BeadDistance);
 
                 // create a new bead.
                 Bead newBead = new Bead();
@@ -88,7 +83,7 @@ namespace PolymerMotionSimulation
         public double GetPotential(Bead bead)
         {
             double potential = 0;
-            for (int i = 0; i < beadsList.Count - 1; i++)
+            for (int i = 0; i < beadsList.Count; i++)
             {
                 Bead item = beadsList[i];
                 if (bead != item)
@@ -119,7 +114,7 @@ namespace PolymerMotionSimulation
         public double GetPotential(Point2d newPosition)
         {
             double potential = 0;
-            for (int i = 0; i < beadsList.Count - 1; i++)
+            for (int i = 0; i < beadsList.Count; i++)
             {
                 Bead item = beadsList[i];
                 if (item.Location != newPosition)
@@ -176,7 +171,7 @@ namespace PolymerMotionSimulation
                     {
                         Bead item_j = beadsList[j];
                         totalBeadPotential += item_i.GetPairPotential(item_j);
-                        Console.Write(totalBeadPotential + "\n");
+                        //Console.Write(totalBeadPotential + "\n");
                         //Thread.Sleep(100);
                     }
                 }
@@ -200,6 +195,11 @@ namespace PolymerMotionSimulation
             return beadsList.GetEnumerator();
         }
         #endregion
+
+        public List<Bead> GetList()
+        {
+            return new List<Bead>(beadsList);
+        }
 
         #region override string ToString()
         public override string ToString()
