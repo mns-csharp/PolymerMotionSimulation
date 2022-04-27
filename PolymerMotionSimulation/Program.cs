@@ -7,7 +7,7 @@ namespace PolymerMotionSimulation
     public class Program
     {
         public const int polymerLength = 30;
-        public const double beadDistance = 3.8;
+        public const double beadDistance = GlobalConstants.Radius;
         public static PolymerChain polymerChain;
         public const int totalIterations = 1000000;
         public const int writeToFileIterations = 100;
@@ -26,7 +26,7 @@ namespace PolymerMotionSimulation
             {
                 Simulation.SimulateMotion(polymerChain, writeToFileIterations);
                 double totalPotential = polymerChain.GetTotalPotential();
-                Console.WriteLine(totalPotential);
+                //Console.WriteLine(totalPotential);
             }
         }
     }

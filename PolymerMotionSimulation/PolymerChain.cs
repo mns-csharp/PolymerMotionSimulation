@@ -161,6 +161,7 @@ namespace PolymerMotionSimulation
                     {                        
                         Bead item_j = beadsList[j];
                         totalBeadPotential += item_i.GetPairPotential(item_j);
+                        Console.Write(totalBeadPotential + ", ");
                     }
                 }
             }

@@ -8,14 +8,25 @@ namespace PolymerMotionSimulation
     {
         public static double LennardJonesPairPotential(Point2d one, Point2d two)
         {
-            double r_square = one.GetSquaredDistance(two);
+            double r_square = one.GetSquaredDistance(two);          
+            double r_power_6 = Math.Pow(r_square, 3);
+            double r_power_12 = r_power_6 * r_power_6;
+            double term_12 = GlobalConstants.SigmaPower12 / r_power_12;
+            double term_6 = GlobalConstants.SigmaPower6 / r_power_6;
 
-            return 0;
+            double lj_potential = 4 * GlobalConstants.Epsilon * (term_12 - term_6);
+
+            return lj_potential;
         }
 
         public static double HarmonicPotential(Point2d one, Point2d two)
         {
-            return 0;
+            double k = GlobalConstants.K_k;
+            double r = one.GetDistance(two);
+
+            double harmonic = k * (r - GlobalConstants.Radius) * (r - GlobalConstants.Radius);
+
+            return harmonic;
         }
     }
 }

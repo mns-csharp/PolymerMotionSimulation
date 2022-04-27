@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace PolymerMotionSimulationGUI
 {
-    public partial class AnimateBall : Form
+    public partial class SimulationGuiForm : Form
     {
         private int x = 0;
         private int y = 0;
@@ -14,7 +14,7 @@ namespace PolymerMotionSimulationGUI
         //private Button abort = new Button();
         Thread t = null;
 
-        public AnimateBall()
+        public SimulationGuiForm()
         {
             InitializeComponent();
                         

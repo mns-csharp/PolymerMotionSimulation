@@ -1,6 +1,6 @@
 ﻿namespace PolymerMotionSimulationGUI
 {
-    public partial class AnimateBall
+    public partial class SimulationGuiForm
     {
         /// <summary>
         /// Required designer variable.

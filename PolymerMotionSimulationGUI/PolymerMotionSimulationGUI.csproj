@@ -40,16 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimateBall.cs">
+    <Compile Include="SimulationGuiForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AnimateBall.Designer.cs">
-      <DependentUpon>AnimateBall.cs</DependentUpon>
+    <Compile Include="SimulationGuiForm.Designer.cs">
+      <DependentUpon>SimulationGuiForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AnimateBall.resx">
-      <DependentUpon>AnimateBall.cs</DependentUpon>
+    <EmbeddedResource Include="SimulationGuiForm.resx">
+      <DependentUpon>SimulationGuiForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

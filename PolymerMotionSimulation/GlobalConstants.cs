@@ -9,9 +9,9 @@ namespace PolymerMotionSimulation
         public const int Width = 100;
         public const int Height = 100;
         public static readonly Point2d BottomLeft = new Point2d(0, 0);
-        public static Point2d TopLeft;
-        public static Point2d TopRight;
-        public static Point2d BottomRight;
+        public static readonly Point2d TopLeft;
+        public static readonly Point2d TopRight;
+        public static readonly Point2d BottomRight;
         public const int MaxLengthOfPolymer_N = 100;
         public const int BoltzmanConstant_Kb = 100;
         public const int Temperature_T = 100;
@@ -19,6 +19,10 @@ namespace PolymerMotionSimulation
         public const double Sigma = 0.80;
         public static readonly double SigmaPower6;
         public static readonly double SigmaPower12;
+
+        public const double K_k = 1;
+
+        public const double Radius = 3.8;
 
         static GlobalConstants()
         {
