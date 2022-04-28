@@ -14,10 +14,10 @@ namespace PolymerMotionSimulation
         public static readonly Point2d BottomRight;
         public static readonly Point2d Center;
         public const int MaxLengthOfPolymer_N = 30;
-        public const int BoltzmanConstant_Kb = 100;
-        public const int Temperature_T = 100;
-        public const double Epsilon = 0.25;
-        public const double Sigma = 0.80;
+        public const int BoltzmanConstant_Kb = 1;
+        public const int Temperature_T = 1;
+        public const double Epsilon = 2;
+        public const double Sigma = 2;
         public static readonly double SigmaPower6;
         public static readonly double SigmaPower12;
 
