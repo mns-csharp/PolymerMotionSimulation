@@ -9,6 +9,22 @@ namespace PolymerMotionSimulation
         public string Name { get; set; }
         public Point2d Location { get; private set; }
 
+        public Bead()
+        {
+        }
+
+        public Bead(string name, Point2d location)
+        {
+            Name = name;
+            Location = location;
+        }
+
+        public Bead(string name, double x, double y)
+        {
+            Name = name;
+            Location = new Point2d(x, y);
+        }
+
         public void SetLocation(Point2d newLocation)
         {
             Location = newLocation;
@@ -16,7 +32,7 @@ namespace PolymerMotionSimulation
 
         public double GetPairPotential(Bead otherBead)
         {
-            return EnergyFunction.LennardJonesPairPotential(this.Location, otherBead.Location);
+            return EnergyFunction.SquareWellPairPotential(this.Location, otherBead.Location);
         }
 
         public double GetHarmonicPotential(Bead otherBead)
@@ -26,7 +42,7 @@ namespace PolymerMotionSimulation
 
         public double GetPairPotential(Point2d otherLocation)
         {
-            return EnergyFunction.LennardJonesPairPotential(this.Location, otherLocation);
+            return EnergyFunction.SquareWellPairPotential(this.Location, otherLocation);
         }
 
         public double GetHarmonicPotential(Point2d otherLocation)
@@ -55,6 +71,7 @@ namespace PolymerMotionSimulation
         }
         #endregion
 
+        #region override string ToString()
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -63,7 +80,8 @@ namespace PolymerMotionSimulation
             sb.Append(Location.ToString());
 
             return sb.ToString();
-        }
+        } 
+        #endregion
 
         #region equality comparison
         /// <summary>
