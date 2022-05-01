@@ -7,7 +7,9 @@ namespace PolymerMotionSimulation
     public class Global
     {
         public const int Width = 100;
+        public const int WidthHalf = Width / 2;
         public const int Height = Width;
+        public const int HeightHalf = Height/2;
         public static readonly Point2d BottomLeft = new Point2d(0, 0);
         public static readonly Point2d TopLeft;
         public static readonly Point2d TopRight;

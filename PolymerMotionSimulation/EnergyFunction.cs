@@ -21,8 +21,8 @@ namespace PolymerMotionSimulation
             double dx = Math.Abs(one.X - two.X);
             double dy = Math.Abs(one.Y - two.Y);
 
-            dx = (dx < periodicBoundaryInt32 / 2) ? dx : periodicBoundaryInt32 - dx;
-            dy = (dy < periodicBoundaryInt32 / 2) ? dy : periodicBoundaryInt32 - dy;
+            dx = (dx < Global.WidthHalf) ? dx : Global.Width - dx;
+            dy = (dy < Global.HeightHalf) ? dy : Global.Height - dy;
 
             double d = Math.Sqrt(dx * dx + dy * dy);
 
@@ -31,6 +31,7 @@ namespace PolymerMotionSimulation
                 en += 10000000;
             else if (d < Global.MaximumAtomicDistance)
                 en += -1;
+            return en;
         }
 
         public static double HarmonicPotential(Point2d one, Point2d two)
