@@ -58,10 +58,12 @@ namespace PolymerMotionSimulationGUI
             for (int i = 0; i < (totalIterations / writeToFileIterations); i++)
             {
                 Simulation.SimulateMotion(polymerChain, writeToFileIterations);
-                SimulationResults.Add(polymerChain); // save the generated result, obviously will save only the written to file simulations 
+                // save the generated result,
+                // obviously will save only the "written to file" iterations 
+                SimulationResults.Add(polymerChain); 
             }
             
-            SimulationResults.CompleteAdding();
+            SimulationResults.CompleteAdding(); // signal that simulation has finished
         }
 
         void DrawBlackCanvas()
@@ -96,23 +98,24 @@ namespace PolymerMotionSimulationGUI
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            // try getting new simulation from the saved, if there was new one added
             if (!SimulationResults.IsCompleted && SimulationResults.TryTake(out var currPolymerChain))
             {
-                DrawPolymerChain(currPolymerChain);
+                DrawPolymerChain(currPolymerChain); // pass the fetched simulation to draw it
 
-                textBox1.Text += currPolymerChain.GetTotalPotential() + "\r\n";
+                var totalPotential = currPolymerChain.GetTotalPotential(); // get potential
+                textBox1.Text += totalPotential + "\r\n";
                 textBox1.SelectionStart = textBox1.Text.Length;
                 textBox1.ScrollToCaret();
 
-                DrawZGraph(currPolymerChain);    
+                DrawZGraph(totalPotential); // pass the fetched simulation's potential to draw on graph
             }
         
         }
 
         int totalX = 0;
-        void DrawZGraph(PolymerChain currPolymerChain)
+        void DrawZGraph(double totalPotential)
         {
-            double totalPotential = currPolymerChain.GetTotalPotential();
             ppList.Add(totalX++, totalPotential);  
 
             zedGraphControl1.AxisChange();
