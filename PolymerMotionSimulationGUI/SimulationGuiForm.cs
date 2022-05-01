@@ -98,7 +98,7 @@ namespace PolymerMotionSimulationGUI
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            // try getting new simulation from the saved, if there was new one added
+            // try getting next simulation from the saved (if there are any)
             if (!SimulationResults.IsCompleted && SimulationResults.TryTake(out var currPolymerChain))
             {
                 DrawPolymerChain(currPolymerChain); // pass the fetched simulation to draw it
