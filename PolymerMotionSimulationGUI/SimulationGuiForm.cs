@@ -1,5 +1,6 @@
 ﻿using PolymerMotionSimulation;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
@@ -18,7 +19,10 @@ namespace PolymerMotionSimulationGUI
         public const int totalIterations = 1000000;
         public const int writeToFileIterations = 100;
         private Thread t;
+        private readonly BlockingCollection<PolymerChain> SimulationResults = 
+            new BlockingCollection<PolymerChain>(1000); // limit to 1000 - producer will wait until consumed
         private PointPairList ppList = new PointPairList();
+        
 
         public SimulationGuiForm()
         {
@@ -54,8 +58,12 @@ namespace PolymerMotionSimulationGUI
             for (int i = 0; i < (totalIterations / writeToFileIterations); i++)
             {
                 Simulation.SimulateMotion(polymerChain, writeToFileIterations);
-                double totalPotential = polymerChain.GetTotalPotential();
+                // save the generated result,
+                // obviously will save only the "written to file" iterations 
+                SimulationResults.Add(polymerChain); 
             }
+            
+            SimulationResults.CompleteAdding(); // signal that simulation has finished
         }
 
         void DrawBlackCanvas()
@@ -68,13 +76,13 @@ namespace PolymerMotionSimulationGUI
             pictureBox1.Image = bmp;
         }
 
-        void DrawPolymerChain()
+        void DrawPolymerChain(PolymerChain currPolymerChain)
         {
             DrawBlackCanvas();
 
             using (Graphics g = Graphics.FromImage(pictureBox1.Image))
             {
-                foreach (Bead item in polymerChain)
+                foreach (Bead item in currPolymerChain)
                 {
                     Point2d translated = item.Location.GetTranslated(Global.Center);
 
@@ -90,19 +98,24 @@ namespace PolymerMotionSimulationGUI
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            DrawPolymerChain();
+            // try getting next simulation from the saved (if there are any)
+            if (!SimulationResults.IsCompleted && SimulationResults.TryTake(out var currPolymerChain))
+            {
+                DrawPolymerChain(currPolymerChain); // pass the fetched simulation to draw it
 
-            textBox1.Text += polymerChain.GetTotalPotential() + "\r\n";
-            textBox1.SelectionStart = textBox1.Text.Length;
-            textBox1.ScrollToCaret();
+                var totalPotential = currPolymerChain.GetTotalPotential(); // get potential
+                textBox1.Text += totalPotential + "\r\n";
+                textBox1.SelectionStart = textBox1.Text.Length;
+                textBox1.ScrollToCaret();
 
-            DrawZGraph();            
+                DrawZGraph(totalPotential); // pass the fetched simulation's potential to draw on graph
+            }
+        
         }
 
         int totalX = 0;
-        void DrawZGraph()
+        void DrawZGraph(double totalPotential)
         {
-            double totalPotential = polymerChain.GetTotalPotential();
             ppList.Add(totalX++, totalPotential);  
 
             zedGraphControl1.AxisChange();
