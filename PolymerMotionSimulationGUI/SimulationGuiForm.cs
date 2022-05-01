@@ -99,7 +99,8 @@ namespace PolymerMotionSimulationGUI
         private void timer1_Tick(object sender, EventArgs e)
         {
             // try getting next simulation from the saved (if there are any)
-            if (!SimulationResults.IsCompleted && SimulationResults.TryTake(out var currPolymerChain))
+            PolymerChain currPolymerChain;
+            if (!SimulationResults.IsCompleted && SimulationResults.TryTake(out currPolymerChain))
             {
                 DrawPolymerChain(currPolymerChain); // pass the fetched simulation to draw it
 
@@ -110,7 +111,6 @@ namespace PolymerMotionSimulationGUI
 
                 DrawZGraph(totalPotential); // pass the fetched simulation's potential to draw on graph
             }
-        
         }
 
         int totalX = 0;
