@@ -4,10 +4,10 @@ using System.Text;
 
 namespace PolymerMotionSimulation
 {
-    public class GlobalConstants
+    public class Global
     {
         public const int Width = 100;
-        public const int Height = 100;
+        public const int Height = Width;
         public static readonly Point2d BottomLeft = new Point2d(0, 0);
         public static readonly Point2d TopLeft;
         public static readonly Point2d TopRight;
@@ -23,9 +23,12 @@ namespace PolymerMotionSimulation
 
         public const double K_k = 1;
 
-        public const double Radius = 3.8;
+        public const double MinimumAtomicDistance = 1;
+        public const double MaximumAtomicDistance = 3.8;
 
-        static GlobalConstants()
+        public static Random Random = new Random(); 
+
+        static Global()
         {
             Center = new Point2d(Width / 2, Height / 2);
             TopLeft = new Point2d(BottomLeft.X, BottomLeft.Y + Height);

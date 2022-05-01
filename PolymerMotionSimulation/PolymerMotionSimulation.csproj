@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Bead.cs" />
     <Compile Include="EnergyFunction.cs" />
-    <Compile Include="GlobalConstants.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="ListRandom.cs" />
     <Compile Include="Point2d.cs" />
     <Compile Include="PolymerChain.cs" />

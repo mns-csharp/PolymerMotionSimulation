@@ -13,7 +13,7 @@ namespace PolymerMotionSimulationGUI
         private int x = 0;
         private int y = 0;
         public const int polymerLength = 30;
-        public const double beadDistance = GlobalConstants.Radius;
+        public const double beadDistance = Global.MaximumAtomicDistance;
         public static PolymerChain polymerChain;
         public const int totalIterations = 1000000;
         public const int writeToFileIterations = 100;
@@ -44,7 +44,7 @@ namespace PolymerMotionSimulationGUI
 
         public void RunSimulationThread()
         {            
-            Random random = new Random();
+            Random random = Global.Random;
             for (int i = 0; i < polymerLength; i++)
             {
                 string name = RandomStringGen.GetRandomString();
@@ -76,7 +76,7 @@ namespace PolymerMotionSimulationGUI
             {
                 foreach (Bead item in polymerChain)
                 {
-                    Point2d translated = item.Location.GetTranslated(GlobalConstants.Center);
+                    Point2d translated = item.Location.GetTranslated(Global.Center);
 
                     x = (int)Math.Round(translated.X, 0);
                     y = (int)Math.Round(translated.Y, 0);
@@ -87,8 +87,6 @@ namespace PolymerMotionSimulationGUI
 
             pictureBox1.Invalidate();
         }
-
-        
 
         private void timer1_Tick(object sender, EventArgs e)
         {

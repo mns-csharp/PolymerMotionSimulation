@@ -4,10 +4,10 @@ using System.Text;
 
 namespace PolymerMotionSimulation
 {
-    public struct Point2d : IEquatable<Point2d>
+    public class Point2d : IEquatable<Point2d>
     {
-        public readonly double X;
-        public readonly double Y; 
+        public double X { get; set; }
+        public double Y { get; set; }
 
         #region constructor
         public Point2d(double x, double y)
@@ -16,6 +16,14 @@ namespace PolymerMotionSimulation
             Y = y;
         }
         #endregion
+        public void Print()
+        {
+            Console.Write("(");
+            Console.Write(X);
+            Console.Write(",");
+            Console.Write(Y);
+            Console.Write(")  ");
+        }
 
         public double GetDistance(Point2d otherPoint)
         {
@@ -30,7 +38,7 @@ namespace PolymerMotionSimulation
 
         public Point2d GetTranslated(Point2d center)
         {
-            return new Point2d(X + center.X, Y+center.Y);
+            return new Point2d(X + center.X, Y + center.Y);
         }
 
         #region override string ToString()
@@ -41,16 +49,16 @@ namespace PolymerMotionSimulation
             sb.Append("(" + X + " , " + Y + ")");
 
             return sb.ToString();
-        } 
+        }
         #endregion
 
         #region equality comparison implementations
         public override bool Equals(object other)
         {
             if (!(other is Point2d)) return false;
-            return Equals((Point2d)other); // Calls method below
+            return Equals((Point2d)other);
         }
-        public bool Equals(Point2d other) // Implements IEquatable<Point2d>
+        public bool Equals(Point2d other)
         {
             return X == other.X && Y == other.Y;
         }
@@ -65,7 +73,7 @@ namespace PolymerMotionSimulation
         public static bool operator !=(Point2d a1, Point2d a2)
         {
             return !a1.Equals(a2);
-        } 
+        }
         #endregion
     }
 }

@@ -6,7 +6,7 @@ namespace PolymerMotionSimulation
     {
         public static void SimulateMotion(PolymerChain polymerChain, int iterations)
         {
-            Random random = new Random();
+            Random random = Global.Random;
             for (int i = 0; i < iterations; i++)
             {
                 // select a random bead from the chain.
@@ -30,10 +30,10 @@ namespace PolymerMotionSimulation
                 else
                 {
                     //apply monte carlo condition
-                    Random monteRandom = new Random();
+                    Random monteRandom = Global.Random;
                     double randDouble = monteRandom.NextDouble();
 
-                    if (Math.Exp(-(potentialAfter - potentialBefore) / GlobalConstants.Temperature_T) > randDouble)
+                    if (Math.Exp(-(potentialAfter - potentialBefore) / Global.Temperature_T) > randDouble)
                     {
                         //move to new location
                         bead.SetLocation(newLocation);

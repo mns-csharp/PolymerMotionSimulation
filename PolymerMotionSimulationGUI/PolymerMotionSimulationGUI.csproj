@@ -59,12 +59,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ZGraphTestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ZGraphTestForm.Designer.cs">
-      <DependentUpon>ZGraphTestForm.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="SimulationGuiForm.resx">
       <DependentUpon>SimulationGuiForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -78,9 +72,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="ZGraphTestForm.resx">
-      <DependentUpon>ZGraphTestForm.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

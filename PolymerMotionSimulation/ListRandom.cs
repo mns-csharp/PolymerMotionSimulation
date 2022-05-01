@@ -6,7 +6,7 @@ namespace PolymerMotionSimulation
 {
     public class ListRandom<T>
     {
-        private static Random rng = new Random();
+        private static Random rng = Global.Random;
 
         public static List<T> GetSubListFromStartToEnd(List<T> oldList, int endIndex)
         {
@@ -57,7 +57,7 @@ namespace PolymerMotionSimulation
 
             List<T> newList = new List<T>();
 
-            Random random = new Random();
+            Random random = Global.Random;
             int index = -99;
             for (int i = minIndex; i <= maxIndex; i++)
             {
@@ -79,7 +79,7 @@ namespace PolymerMotionSimulation
 
             List<T> newList = new List<T>();
 
-            Random random = new Random();
+            Random random = Global.Random;
             int index = -99;
             for (int i = startIndex; i < maxIndex; i++)
             {

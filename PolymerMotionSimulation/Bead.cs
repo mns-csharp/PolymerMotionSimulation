@@ -37,7 +37,7 @@ namespace PolymerMotionSimulation
         #region public static Point2d GetRandomPoint(double radius)
         public Point2d GetRandomPoint(double radius)
         {
-            Random random = new Random();
+            Random random = Global.Random;
             double x;
             double y;
             do
@@ -48,8 +48,8 @@ namespace PolymerMotionSimulation
                 x = Location.X + r * Math.Cos(theta);
                 y = Location.Y + r * Math.Sin(theta);
             }
-            while (!(GlobalConstants.BottomLeft.X <= x && GlobalConstants.BottomRight.X >= x)
-                    || !(GlobalConstants.BottomLeft.Y <= y && GlobalConstants.TopLeft.Y >= y));
+            while (!(Global.BottomLeft.X <= x && Global.BottomRight.X >= x)
+                    || !(Global.BottomLeft.Y <= y && Global.TopLeft.Y >= y));
 
             return new Point2d(x, y);
         }
