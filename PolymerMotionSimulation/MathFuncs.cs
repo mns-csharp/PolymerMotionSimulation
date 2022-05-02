@@ -29,20 +29,15 @@ namespace PolymerMotionSimulation
     
         public static double LennardJonesPairPotential(double sigma, double epsilon, double rad)
         {
-            if (rad == 0)
-            {
-                throw new Exception("[in LennardJonesPairPotential()] one and two have same locations.");
-            }
-
             double r_square = rad * rad;//16
             double r_power_6 = Math.Pow(r_square, 3);//4096
             double r_power_12 = r_power_6 * r_power_6;//16777216
             double sigma_6 = Math.Pow(sigma, 6);//1544.804416
             double sigma_12 = sigma_6 * sigma_6;//2386420.68369
-            double term_12 = Math.Round(sigma_12 / r_power_12, 2);//0.14224175713
-            double term_6 = Math.Round(sigma_6 / r_power_6, 2);//0.37714951562
-            double term_diff = Math.Round(term_12 - term_6, 2);//-0.23490775849
-            double lj_potential = Math.Round(4 * epsilon * term_diff, 2);//-0.93681214085
+            double term_12 = sigma_12 / r_power_12;//0.14224175713
+            double term_6 = sigma_6 / r_power_6;//0.37714951562
+            double term_diff = term_12 - term_6;//-0.23490775849
+            double lj_potential = 4 * epsilon * term_diff;//-0.93681214085
             return lj_potential;
         }
 
@@ -61,10 +56,15 @@ namespace PolymerMotionSimulation
         public static double HarmonicPotential(double k, double r, double r0)
         {
             //https://chem.libretexts.org/Courses/Pacific_Union_College/Quantum_Chemistry/05%3A_The_Harmonic_Oscillator_and_the_Rigid_Rotor/5.01%3A_A_Harmonic_Oscillator_Obeys_Hooke's_Law
-            double diff = Math.Round(r - r0, 2);
-            double harmonic = Math.Round(0.5 * k * diff * diff, 2);
+            double diff = r - r0;
+            double harmonic = 0.5 * k * diff * diff;
 
             return harmonic;
+        }
+
+        public static double Truncate(double value)
+        {
+            return Math.Ceiling(value * 100) / 100;
         }
     }
 }

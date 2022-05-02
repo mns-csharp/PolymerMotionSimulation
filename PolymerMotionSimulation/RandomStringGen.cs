@@ -18,7 +18,7 @@ namespace PolymerMotionSimulation
         {
             string path = Path.GetRandomFileName();
             path = path.Replace(".", ""); // Remove period.
-            return path;
+            return path.ToUpper();
         }
     }
 }

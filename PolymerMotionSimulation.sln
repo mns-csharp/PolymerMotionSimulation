@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolymerMotionSimulationGUI"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolymerMotionSimulationUnitTest", "PolymerMotionSimulationUnitTest\PolymerMotionSimulationUnitTest.csproj", "{F2D17291-5F4B-4E31-88A4-AA67F865B076}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolymerMotionSimulationConsoleApp", "PolymerMotionSimulationConsoleApp\PolymerMotionSimulationConsoleApp.csproj", "{2B8CC7EC-A0BB-4462-BA57-1A4EAA63B802}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F2D17291-5F4B-4E31-88A4-AA67F865B076}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2D17291-5F4B-4E31-88A4-AA67F865B076}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2D17291-5F4B-4E31-88A4-AA67F865B076}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B8CC7EC-A0BB-4462-BA57-1A4EAA63B802}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B8CC7EC-A0BB-4462-BA57-1A4EAA63B802}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B8CC7EC-A0BB-4462-BA57-1A4EAA63B802}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B8CC7EC-A0BB-4462-BA57-1A4EAA63B802}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,17 +11,17 @@ namespace PolymerMotionSimulationUnitTest
         public void LennardJonesTest()
         {
             // https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Supplemental_Modules_(Physical_and_Theoretical_Chemistry)/Physical_Properties_of_Matter/Atomic_and_Molecular_Properties/Intermolecular_Forces/Specific_Interactions/Lennard-Jones_Potential
-            double lj = MathFuncs.LennardJonesPairPotential(3.40, 0.997, 4.0);
+            double lj = Math.Round(MathFuncs.LennardJonesPairPotential(3.40, 0.997, 4.0), 2);
 
-            Assert.AreEqual(lj, -0.96);
+            Assert.AreEqual(-0.94, lj);
         }
 
         [TestMethod]
         public void HarmonicPotentialTest()
         {
-            double harmonic = MathFuncs.HarmonicPotential(1, 2.5, 3.8);
+            double harmonic = Math.Round(MathFuncs.HarmonicPotential(1, 2.5, 3.8), 2);
 
-            Assert.AreEqual(harmonic, 0.85);
+            Assert.AreEqual(0.84, harmonic);
         }
 
         [TestMethod]

@@ -12,6 +12,7 @@ namespace PolymerMotionSimulation
         public int MaxCapacity { get; private set; }
         public double BeadDistance { get; private set; }
         private List<Bead> beadsList = null;
+        private string lastKey;
         #endregion
 
         public int Count
@@ -25,10 +26,14 @@ namespace PolymerMotionSimulation
             MaxCapacity = 4;
             BeadDistance = 3.8;
 
-            beadsList.Add(new Bead("AA",1.67, 1.67));
-            beadsList.Add(new Bead("BB",1.67, 3.33));//this index selected
-            beadsList.Add(new Bead("CC",3.33, 1.67));
-            beadsList.Add(new Bead("DD",3.33, 3.33));
+            Bead bead = new Bead("AA", 1.67, 1.67);
+            beadsList.Add(bead);
+            bead = new Bead("BB", 1.67, 3.33);
+            beadsList.Add(bead);//this index selected
+            bead = new Bead("CC", 3.33, 1.67);
+            beadsList.Add(bead);
+            bead = new Bead("DD", 3.33, 3.33);
+            beadsList.Add(bead);
         }
 
         #region PolymerChain(int maxBeads, double beadDistance)
@@ -45,6 +50,11 @@ namespace PolymerMotionSimulation
 
             MaxCapacity = maxBeads;
             BeadDistance = beadDistance;
+
+            while(beadsList.Count < MaxCapacity)
+            {
+                Add("");
+            }
         } 
         #endregion
 
@@ -56,40 +66,29 @@ namespace PolymerMotionSimulation
                 throw new Exception("Polymer's bead-capacity already full-filled!");
             }
 
-            //Obtain the last bead of the chain.
-            Bead lastBead = null;
-            try
+            //add a new bead in the dictionary.
+            Bead newBead = new Bead();
+            newBead.Name = name;
+
+            if (beadsList.Count <= 0)
             {
-                lastBead = beadsList[beadsList.Count - 1];
-            }
-            catch
-            {
-
-            }
-
-            if (lastBead != null)
-            {
-                //obtain a random location at distance 3.8.
-                Point2d newLocation = lastBead.GetRandomPoint(BeadDistance);
-
-                // create a new bead.
-                Bead newBead = new Bead();
-                newBead.Name = name;
-                newBead.SetLocation(newLocation);
-
-                //add the new bead to the polymer chain
-                beadsList.Add(newBead);
+                newBead.SetLocation(new Point2d(0, 0));
             }
             else
             {
-                // create a new bead.
-                Bead newBead = new Bead();
-                newBead.Name = name;
-                newBead.SetLocation(new Point2d(0, 0));
+                Bead lastBead = null;
+                do
+                {
+                    lastBead = beadsList[beadsList.Count - 1];
 
-                //add the new bead to the polymer chain
-                beadsList.Add(newBead);
+                    Point2d newLocation = lastBead.GetRandomPoint(BeadDistance);
+                    
+                    newBead.SetLocation(newLocation);
+                }
+                while (beadsList.Contains(newBead));
             }
+
+            beadsList.Add(newBead);
         }
         #endregion
 
@@ -143,15 +142,41 @@ namespace PolymerMotionSimulation
 
         #region double GetTotalPotential()
         public double GetTotalPotential()
-        {
-            double total = 0;
+        {            
+            double totalPotential = 0;
+            double totalHarmonic = 0;
 
-            double temp_total = 0;
-            foreach (Bead item in beadsList)
+            double tempTotal = 0;
+            double tempHarmonic = 0;
+            for (int i = 0; i < beadsList.Count-1; i++)
             {
-                temp_total=GetPotential(item);
-                total += temp_total;
+                Bead bead_i = beadsList[i];
+
+                try
+                {
+                    Bead bead_i_plus_1 = beadsList[i + 1];
+
+                    tempHarmonic = bead_i.GetHarmonicPotential(bead_i_plus_1);
+
+                    totalHarmonic += tempHarmonic;
+
+                }
+                catch{}
+                /*
+                * Page-133. Molecular simulation by Sadus. 
+                */
+                for (int j = i+1; j < beadsList.Count; j++)
+                {                    
+                    Bead bead_j = beadsList[j];
+
+                    tempTotal = bead_i.GetPairPotential(bead_j);
+
+                    totalPotential += tempTotal;
+                }
             }
+
+            double total = totalPotential + totalHarmonic;
+
             return total;
         } 
         #endregion
@@ -185,7 +210,7 @@ namespace PolymerMotionSimulation
 
             foreach (var item in beadsList)
             {
-                sb.Append(item.ToString() + "\r\n");
+                sb.Append(item.ToString() + "; ");
             }
 
             return sb.ToString();

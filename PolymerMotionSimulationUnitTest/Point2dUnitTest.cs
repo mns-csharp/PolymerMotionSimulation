@@ -13,7 +13,7 @@ namespace YendrekUnitTestProject
             Point2d point1 = new Point2d(100, 200);
             Point2d point2 = new Point2d(10, -10);
 
-            double d = (point1.GetSquaredDistance(point2));
+            double d = Math.Round(point1.GetSquaredDistance(point2), 2);
 
             Assert.AreEqual(52200, d);
         }
@@ -24,9 +24,9 @@ namespace YendrekUnitTestProject
             Point2d point1 = new Point2d(100, 200);
             Point2d point2 = new Point2d(10, -10);
 
-            double d = Math.Round(point1.GetDistance(point2), 3);
+            double d = Math.Round(point1.GetDistance(point2), 2);
 
-            Assert.AreEqual(228.473, d);
+            Assert.AreEqual(228.47, d);
         }
 
         [TestMethod]

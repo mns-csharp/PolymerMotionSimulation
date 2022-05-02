@@ -10,7 +10,7 @@ namespace PolymerMotionSimulation
         public const int Width = PeriodicDistance;
         public const int Height = Width;
         public static readonly Point2d Center;
-        public const int MaxLengthOfPolymer_N = 16;
+        public const int PolymerSize_N = 16;
         public const double BoltzmanConstant_Kb = 1.0;
         public const double Temperature_T = 10.0;
         public const double Epsilon = 2;

@@ -59,7 +59,9 @@ namespace PolymerMotionSimulation
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append("(" + X + " , " + Y + ")");
+            string format = string.Format("({0:0.00}, {1:0.00})", X, Y);
+
+            sb.Append(format);
 
             return sb.ToString();
         }

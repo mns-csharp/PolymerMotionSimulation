@@ -54,8 +54,10 @@ namespace PolymerMotionSimulation
         public static double GetPairPotential(Point2d thisLocation, Point2d otherLocation)
         {
             double r = thisLocation.GetDistance(otherLocation);
-            return MathFuncs.LennardJonesPairPotential(Global.Sigma, Global.Epsilon, r);
-            //return 0;
+
+            double returns = MathFuncs.LennardJonesPairPotential(Global.Sigma, Global.Epsilon, r);
+
+            return returns;
         }
         #endregion
 
@@ -90,7 +92,6 @@ namespace PolymerMotionSimulation
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(Name + " ");
             sb.Append(Location.ToString());
 
             return sb.ToString();
