@@ -28,7 +28,7 @@ namespace PolymerMotionSimulationGUI
 
             zedGraphControl1.GraphPane.AddCurve("", ppList, Color.Red, SymbolType.None);
 
-            polymerChain = new PolymerChain(Global.MaxLengthOfPolymer_N, Global.MaxAtomDist);
+            polymerChain = new PolymerChain();
             t = new Thread(new ThreadStart(RunSimulationThread));
             t.Start();
             textBox1.Text = "START" + "\r\n";
@@ -44,12 +44,11 @@ namespace PolymerMotionSimulationGUI
 
         public void RunSimulationThread()
         {            
-            Random random = Global.Random;
-            for (int i = 0; i < Global.MaxLengthOfPolymer_N; i++)
-            {
-                string name = RandomStringGen.GetRandomString();
-                polymerChain.Add(name);
-            }
+            //for (int i = 0; i < pol; i++)
+            //{
+            //    string name = RandomStringGen.GetRandomString();
+            //    polymerChain.Add(name);
+            //}
 
             for (int i = 0; i < (Global.SimulationSteps / Global.WriteToFileSteps); i++)
             {

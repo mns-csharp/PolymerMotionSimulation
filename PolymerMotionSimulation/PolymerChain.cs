@@ -70,10 +70,7 @@ namespace PolymerMotionSimulation
             if (lastBead != null)
             {
                 //obtain a random location at distance 3.8.
-                Point2d newLocation;
-
-                // generate new random point until it is inside the simulation-box.
-                newLocation = lastBead.GetRandomPoint(BeadDistance);
+                Point2d newLocation = lastBead.GetRandomPoint(BeadDistance);
 
                 // create a new bead.
                 Bead newBead = new Bead();

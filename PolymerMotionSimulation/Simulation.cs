@@ -9,7 +9,7 @@ namespace PolymerMotionSimulation
             Random random = Global.Random;
             for (int i = 0; i < iterations; i++)
             {
-                int selectedIndx = random.Next(0, polymerChain.MaxCapacity-1);
+                int selectedIndx = random.Next(0, polymerChain.Count-1);
                 Bead randomBead = polymerChain[selectedIndx];
 
                 Point2d previousLoc = new Point2d(randomBead.Location.X, randomBead.Location.Y);

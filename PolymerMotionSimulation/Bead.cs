@@ -62,25 +62,25 @@ namespace PolymerMotionSimulation
         #region public static Point2d GetRandomPoint(double radius)
         public Point2d GetRandomPoint(double radius)
         {
-            Point2d point = new Point2d(MathFuncs.GetRandPointAtRadius(Location.X, Location.Y, radius));
+            Point2d newPoint = new Point2d(MathFuncs.GetRandPointAtRadius(Location.X, Location.Y, radius));
 
-            double temp_x = point.X;
-            double temp_y = point.Y;
+            double newX = newPoint.X;
+            double newY = newPoint.Y;
 
             double x = 0, y = 0;
 
             // Apply periodic boundary conditions.
-            if (temp_x < 0)
-                x = Global.PeriodicDistance - temp_x;
-            else
-                x = (temp_x < Global.PeriodicDistance) ? temp_x : temp_x - Global.PeriodicDistance;
+            if (newX < 0)
+                x = Global.PeriodicDistance + newX;
+            else if (newX > Global.PeriodicDistance)
+                x =  newX - Global.PeriodicDistance;
 
             // boundary condition check for new Y
-            if (temp_y < 0)
-                y = Global.PeriodicDistance - temp_y;
-            else
-                y = (temp_y < Global.PeriodicDistance) ? temp_y : temp_y - Global.PeriodicDistance;
-            
+            if (newY < 0)
+                y = Global.PeriodicDistance + newY;
+            else if (newY > Global.PeriodicDistance)
+                y = newY - Global.PeriodicDistance;
+
             return new Point2d(x, y);
         }
         #endregion

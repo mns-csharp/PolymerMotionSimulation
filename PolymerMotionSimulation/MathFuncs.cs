@@ -25,18 +25,6 @@ namespace PolymerMotionSimulation
             double y = Math.Sin(angle) * radius;
 
             return new double[] {x, y};
-
-            /*
-                double dx = Global.Random.NextDouble();  // obtain new move distance for X axis
-                dx = MathFuncs.GetNormalizeBetween(dx, -0.5, 5);
-                double dy = Global.Random.NextDouble();  // obtain new move distance for Y axis
-                dy = MathFuncs.GetNormalizeBetween(dy, -5, 5);
-                //print("(", round(dx, 2), ",", round(dy, 2), ")", end = ", ")
-                //prev_x, prev_y = polymer_chain_vec[randomIndex__int]  # back up old location
-                double temp_x = currentLoc.X + dx;  // create new proposed X
-                double temp_y = currentLoc.Y + dy;  // create new proposed Y
-                return new Point2d(temp_x, temp_y);
-            */
         }
     
         public static double LennardJonesPairPotential(double sigma, double epsilon, double rad)

@@ -6,8 +6,8 @@ namespace PolymerMotionSimulation
 {
     public class Global
     {
-        public const int PeriodicDistance = 5;
-        public const int Width = 10;
+        public const int PeriodicDistance = 100;
+        public const int Width = PeriodicDistance;
         public const int Height = Width;
         public static readonly Point2d Center;
         public const int MaxLengthOfPolymer_N = 16;
