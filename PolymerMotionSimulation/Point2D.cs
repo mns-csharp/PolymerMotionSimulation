@@ -15,6 +15,14 @@ namespace PolymerMotionSimulation
             X = x;
             Y = y;
         }
+        public Point2d(double [] points)
+        {
+            if (points.GetLength(0) < 2)
+                throw new Exception("[in Point2d(double [] points)] the array must be at least 2 elements long.");
+
+            X = points[0];
+            Y = points[1];
+        }
         #endregion
         public void Print()
         {

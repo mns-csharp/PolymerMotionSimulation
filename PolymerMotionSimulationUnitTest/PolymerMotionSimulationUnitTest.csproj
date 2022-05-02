@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="BeadUnitTest.cs" />
     <Compile Include="EnergyFunctionUnitTest.cs" />
+    <Compile Include="MathUnitTest.cs" />
     <Compile Include="Point2dUnitTest.cs" />
     <Compile Include="PolymerChainUnitTest.cs" />
     <Compile Include="UnitTest1.cs" />

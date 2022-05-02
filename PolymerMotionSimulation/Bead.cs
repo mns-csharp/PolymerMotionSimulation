@@ -9,6 +9,7 @@ namespace PolymerMotionSimulation
         public string Name { get; set; }
         public Point2d Location { get; private set; }
 
+        #region constructors
         public Bead()
         {
         }
@@ -23,30 +24,15 @@ namespace PolymerMotionSimulation
         {
             Name = name;
             Location = new Point2d(x, y);
-        }
+        } 
+        #endregion
 
         public void SetLocation(Point2d newLocation)
         {
             Location = newLocation;
         }
 
-        public double GetPairPotential(Bead otherBead)
-        {
-            return Bead.GetPairPotential(this.Location, otherBead.Location);
-        }
-
-        public double GetHarmonicPotential(Bead otherBead)
-        {
-            return Bead.GetHarmonicPotential(this.Location, otherBead.Location);
-        }
-
-        public static double GetPairPotential(Point2d thisLocation, Point2d otherLocation)
-        {
-            double r = thisLocation.GetDistance(otherLocation);
-            return MathFuncs.LennardJonesPairPotential(Global.Sigma, Global.Epsilon, r);
-            //return 0;
-        }
-
+        #region double GetHarmonicPotential()
         public static double GetHarmonicPotential(Point2d thisLocation, Point2d otherLocation)
         {
             double r = thisLocation.GetDistance(otherLocation);
@@ -54,10 +40,29 @@ namespace PolymerMotionSimulation
             //return 0;
         }
 
+        public double GetHarmonicPotential(Bead otherBead)
+        {
+            return Bead.GetHarmonicPotential(this.Location, otherBead.Location);
+        } 
+        #endregion
+
+        #region double GetPairPotential()
+        public double GetPairPotential(Bead otherBead)
+        {
+            return Bead.GetPairPotential(this.Location, otherBead.Location);
+        }
+        public static double GetPairPotential(Point2d thisLocation, Point2d otherLocation)
+        {
+            double r = thisLocation.GetDistance(otherLocation);
+            return MathFuncs.LennardJonesPairPotential(Global.Sigma, Global.Epsilon, r);
+            //return 0;
+        }
+        #endregion
+
         #region public static Point2d GetRandomPoint(double radius)
         public Point2d GetRandomPoint(double radius)
         {
-            Point2d point = MathFuncs.GetRandPointAtRadius(this.Location, radius);
+            Point2d point = new Point2d(MathFuncs.GetRandPointAtRadius(Location.X, Location.Y, radius));
 
             double temp_x = point.X;
             double temp_y = point.Y;
