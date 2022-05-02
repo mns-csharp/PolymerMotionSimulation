@@ -32,24 +32,24 @@ namespace PolymerMotionSimulation
 
         public double GetPairPotential(Bead otherBead)
         {
-            return GetPairPotential(otherBead.Location);
+            return Bead.GetPairPotential(this.Location, otherBead.Location);
         }
 
         public double GetHarmonicPotential(Bead otherBead)
         {
-            return GetHarmonicPotential(otherBead.Location);
+            return Bead.GetHarmonicPotential(this.Location, otherBead.Location);
         }
 
-        public double GetPairPotential(Point2d otherLocation)
+        public static double GetPairPotential(Point2d thisLocation, Point2d otherLocation)
         {
-            double r = this.Location.GetDistance(otherLocation);
+            double r = thisLocation.GetDistance(otherLocation);
             return MathFuncs.LennardJonesPairPotential(Global.Sigma, Global.Epsilon, r);
             //return 0;
         }
 
-        public double GetHarmonicPotential(Point2d otherLocation)
+        public static double GetHarmonicPotential(Point2d thisLocation, Point2d otherLocation)
         {
-            double r = this.Location.GetDistance(otherLocation);
+            double r = thisLocation.GetDistance(otherLocation);
             return MathFuncs.HarmonicPotential(Global.Harmonic_K, r, Global.MaxAtomDist);
             //return 0;
         }

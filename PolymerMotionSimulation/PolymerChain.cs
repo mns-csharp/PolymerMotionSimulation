@@ -103,30 +103,36 @@ namespace PolymerMotionSimulation
         }
         #endregion
 
-        #region double GetPotential(Bead currentBead)
         public double GetPotential(Bead currentBead)
+        {
+            return GetPotential(currentBead.Location);
+        }
+
+        #region double GetPotential(Point2d currentLoc)
+        public double GetPotential(Point2d currentLoc)
         {
             double beadPotential = 0;
             double harmonicPotential = 0;
+
             for (int i = 0; i < beadsList.Count; i++)
             {
-                Bead otherBead = beadsList[i];
+                Point2d otherLoc = beadsList[i].Location;
 
-                if (currentBead.Location != otherBead.Location)
+                if (currentLoc != otherLoc)
                 {
-                    beadPotential += currentBead.GetPairPotential(otherBead);
+                    beadPotential += Bead.GetPairPotential(currentLoc, otherLoc);
                 }
                 else
                 {
                     try
                     {
-                        harmonicPotential += currentBead.GetHarmonicPotential(beadsList[i - 1]);
+                        harmonicPotential += Bead.GetHarmonicPotential(currentLoc, beadsList[i - 1].Location);
                     }
                     catch { }
 
                     try
                     {
-                        harmonicPotential += currentBead.GetHarmonicPotential(beadsList[i + 1]);
+                        harmonicPotential += Bead.GetHarmonicPotential(currentLoc, beadsList[i + 1].Location);
                     }
                     catch { }
                 }

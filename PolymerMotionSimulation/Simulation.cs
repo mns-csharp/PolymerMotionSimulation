@@ -9,19 +9,19 @@ namespace PolymerMotionSimulation
             Random random = Global.Random;
             for (int i = 0; i < iterations; i++)
             {
-                int randomIndex = random.Next(0, polymerChain.MaxCapacity-1);
-                Bead randomBead = polymerChain[randomIndex];
+                int selectedIndx = random.Next(0, polymerChain.MaxCapacity-1);
+                Bead randomBead = polymerChain[selectedIndx];
 
                 Point2d previousLoc = new Point2d(randomBead.Location.X, randomBead.Location.Y);
                 double previousPot = polymerChain.GetPotential(randomBead);
                 
                 Point2d newLocation = randomBead.GetRandomPoint(polymerChain.BeadDistance);
                 randomBead.SetLocation(newLocation);
-                double potentialAfter = polymerChain.GetPotential(newLocation);
+                double afterPot = polymerChain.GetPotential(newLocation);
 
-                double energyDifferenceDouble = potentialAfter - previousPot;
+                double energyDiff = afterPot - previousPot;
 
-                if (energyDifferenceDouble < 0)  // e_before > e_after
+                if (energyDiff < 0)  // e_before > e_after
                 {
                     //pass
                     //stringList.Add("A");
@@ -30,9 +30,9 @@ namespace PolymerMotionSimulation
                 {
                     double randomDouble = Global.Random.Next();
 
-                    double montecarlo = Math.Exp((-1) * (energyDifferenceDouble) / (Global.Temperature_T));
+                    double monteCarlo = Math.Exp((-1) * (energyDiff) / (Global.Temperature_T));
 
-                    if (montecarlo > randomDouble)
+                    if (monteCarlo > randomDouble)
                     {
                         //pass
                         //stringList.Add("B");
