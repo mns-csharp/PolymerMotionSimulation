@@ -13,11 +13,7 @@ namespace PolymerMotionSimulationGUI
     {
         private int x = 0;
         private int y = 0;
-        public const int polymerLength = 30;
-        public const double beadDistance = Global.MaximumAtomicDistance;
         public static PolymerChain polymerChain;
-        public const int totalIterations = 1000000;
-        public const int writeToFileIterations = 100;
         private Thread t;
         private readonly BlockingCollection<PolymerChain> SimulationResults = 
             new BlockingCollection<PolymerChain>(1000); // limit to 1000 - producer will wait until consumed
@@ -32,7 +28,7 @@ namespace PolymerMotionSimulationGUI
 
             zedGraphControl1.GraphPane.AddCurve("", ppList, Color.Red, SymbolType.None);
 
-            polymerChain = new PolymerChain(polymerLength, beadDistance);
+            polymerChain = new PolymerChain(Global.MaxLengthOfPolymer_N, Global.MaxAtomDist);
             t = new Thread(new ThreadStart(RunSimulationThread));
             t.Start();
             textBox1.Text = "START" + "\r\n";
@@ -49,15 +45,15 @@ namespace PolymerMotionSimulationGUI
         public void RunSimulationThread()
         {            
             Random random = Global.Random;
-            for (int i = 0; i < polymerLength; i++)
+            for (int i = 0; i < Global.MaxLengthOfPolymer_N; i++)
             {
                 string name = RandomStringGen.GetRandomString();
                 polymerChain.Add(name);
             }
 
-            for (int i = 0; i < (totalIterations / writeToFileIterations); i++)
+            for (int i = 0; i < (Global.SimulationSteps / Global.WriteToFileSteps); i++)
             {
-                Simulation.SimulateMotion(polymerChain, writeToFileIterations);
+                Simulation.SimulateMotion(polymerChain, Global.WriteToFileSteps);
                 // save the generated result,
                 // obviously will save only the "written to file" iterations 
                 SimulationResults.Add(polymerChain); 
@@ -84,10 +80,11 @@ namespace PolymerMotionSimulationGUI
             {
                 foreach (Bead item in currPolymerChain)
                 {
-                    Point2d translated = item.Location.GetTranslated(Global.Center);
+                    Point2d itemLoc = item.Location;
+                    Point2d translatedLoc = itemLoc;//itemLoc.GetTranslated(Global.Width / 2, Global.Height / 2);
 
-                    x = (int)Math.Round(translated.X, 0);
-                    y = (int)Math.Round(translated.Y, 0);
+                    x = (int) Math.Round(translatedLoc.X, 0);
+                    y = (int) Math.Round(translatedLoc.Y, 0);
 
                     g.FillEllipse(Brushes.Yellow, x, y, 3, 3);                    
                 }
@@ -104,7 +101,7 @@ namespace PolymerMotionSimulationGUI
             {
                 DrawPolymerChain(currPolymerChain); // pass the fetched simulation to draw it
 
-                var totalPotential = currPolymerChain.GetTotalPotential(); // get potential
+                var totalPotential = currPolymerChain.GetTotalPotential(); // total potential
                 textBox1.Text += totalPotential + "\r\n";
                 textBox1.SelectionStart = textBox1.Text.Length;
                 textBox1.ScrollToCaret();

@@ -60,11 +60,11 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(13, 434);
+            this.textBox1.Location = new System.Drawing.Point(13, 420);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(1022, 101);
+            this.textBox1.Size = new System.Drawing.Size(960, 115);
             this.textBox1.TabIndex = 3;
             // 
             // zedGraphControl1
@@ -79,7 +79,7 @@
             this.zedGraphControl1.ScrollMinX = 0D;
             this.zedGraphControl1.ScrollMinY = 0D;
             this.zedGraphControl1.ScrollMinY2 = 0D;
-            this.zedGraphControl1.Size = new System.Drawing.Size(552, 416);
+            this.zedGraphControl1.Size = new System.Drawing.Size(550, 400);
             this.zedGraphControl1.TabIndex = 4;
             this.zedGraphControl1.UseExtendedPrintDialog = true;
             // 
@@ -87,7 +87,7 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(13, 23);
+            this.pictureBox1.Location = new System.Drawing.Point(13, 14);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(400, 400);
             this.pictureBox1.TabIndex = 5;
@@ -95,14 +95,14 @@
             // 
             // paintBoxTimer
             // 
-            this.paintBoxTimer.Interval = 10;
+            this.paintBoxTimer.Interval = 50;
             this.paintBoxTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // SimulationGuiForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1047, 608);
+            this.ClientSize = new System.Drawing.Size(986, 608);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.zedGraphControl1);
             this.Controls.Add(this.textBox1);

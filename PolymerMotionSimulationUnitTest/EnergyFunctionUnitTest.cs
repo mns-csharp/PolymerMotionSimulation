@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PolymerMotionSimulation;
 
 namespace PolymerMotionSimulationUnitTest
 {
@@ -7,8 +8,33 @@ namespace PolymerMotionSimulationUnitTest
     public class EnergyFunctionUnitTest
     {
         [TestMethod]
-        public void TestLennardJones()
+        public void LennardJonesTest()
         {
+            // https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Supplemental_Modules_(Physical_and_Theoretical_Chemistry)/Physical_Properties_of_Matter/Atomic_and_Molecular_Properties/Intermolecular_Forces/Specific_Interactions/Lennard-Jones_Potential
+            double lj = MathFuncs.LennardJonesPairPotential(3.40, 0.997, 4.0);
+
+            Assert.AreEqual(lj, -0.96);
+        }
+
+        [TestMethod]
+        public void HarmonicPotentialTest()
+        {
+            double harmonic = MathFuncs.HarmonicPotential(1, 2.5, 3.8);
+
+            Assert.AreEqual(harmonic, 0.85);
+        }
+
+        [TestMethod]
+        public void SquarewellPotentialTest()
+        {
+            double pot = MathFuncs.SquareWellPairPotential(4.0, 1, 3.8);
+            Assert.AreEqual(pot, 0);
+
+            pot = MathFuncs.SquareWellPairPotential(2.0, 1, 3.8);
+            Assert.AreEqual(pot, -1);
+
+            pot = MathFuncs.SquareWellPairPotential(0, 1, 3.8);
+            Assert.AreEqual(pot, 10000000);
         }
     }
 }

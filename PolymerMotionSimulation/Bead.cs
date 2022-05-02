@@ -32,41 +32,50 @@ namespace PolymerMotionSimulation
 
         public double GetPairPotential(Bead otherBead)
         {
-            return EnergyFunction.SquareWellPairPotential(this.Location, otherBead.Location);
+            return GetPairPotential(otherBead.Location);
         }
 
         public double GetHarmonicPotential(Bead otherBead)
         {
-            return EnergyFunction.HarmonicPotential(this.Location, otherBead.Location);
+            return GetHarmonicPotential(otherBead.Location);
         }
 
         public double GetPairPotential(Point2d otherLocation)
         {
-            return EnergyFunction.SquareWellPairPotential(this.Location, otherLocation);
+            double r = this.Location.GetDistance(otherLocation);
+            return MathFuncs.LennardJonesPairPotential(Global.Sigma, Global.Epsilon, r);
+            //return 0;
         }
 
         public double GetHarmonicPotential(Point2d otherLocation)
         {
-            return EnergyFunction.HarmonicPotential(this.Location, otherLocation);
+            double r = this.Location.GetDistance(otherLocation);
+            return MathFuncs.HarmonicPotential(Global.Harmonic_K, r, Global.MaxAtomDist);
+            //return 0;
         }
 
         #region public static Point2d GetRandomPoint(double radius)
         public Point2d GetRandomPoint(double radius)
         {
-            Random random = Global.Random;
-            double x;
-            double y;
-            do
-            {
-                double r = radius * Math.Sqrt(random.NextDouble());
-                double theta = random.NextDouble() * 2 * Math.PI;
+            Point2d point = MathFuncs.GetRandPointAtRadius(this.Location, radius);
 
-                x = Location.X + r * Math.Cos(theta);
-                y = Location.Y + r * Math.Sin(theta);
-            }
-            while (!(Global.BottomLeft.X <= x && Global.BottomRight.X >= x)
-                    || !(Global.BottomLeft.Y <= y && Global.TopLeft.Y >= y));
+            double temp_x = point.X;
+            double temp_y = point.Y;
 
+            double x = 0, y = 0;
+
+            // Apply periodic boundary conditions.
+            if (temp_x < 0)
+                x = Global.PeriodicDistance - temp_x;
+            else
+                x = (temp_x < Global.PeriodicDistance) ? temp_x : temp_x - Global.PeriodicDistance;
+
+            // boundary condition check for new Y
+            if (temp_y < 0)
+                y = Global.PeriodicDistance - temp_y;
+            else
+                y = (temp_y < Global.PeriodicDistance) ? temp_y : temp_y - Global.PeriodicDistance;
+            
             return new Point2d(x, y);
         }
         #endregion

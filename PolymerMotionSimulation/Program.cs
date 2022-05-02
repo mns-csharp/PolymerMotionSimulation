@@ -7,7 +7,7 @@ namespace PolymerMotionSimulation
     public class Program
     {
         public const int polymerLength = 30;
-        public const double beadDistance = Global.MaximumAtomicDistance;
+        public const double beadDistance = Global.MaxAtomDist;
         public static PolymerChain polymerChain;
         public const int totalIterations = 1000000;
         public const int writeToFileIterations = 100;

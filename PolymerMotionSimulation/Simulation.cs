@@ -9,38 +9,39 @@ namespace PolymerMotionSimulation
             Random random = Global.Random;
             for (int i = 0; i < iterations; i++)
             {
-                // select a random bead from the chain.
-                int index = random.Next(0, polymerChain.MaxCapacity-1);
-                Bead bead = polymerChain[index];
+                int randomIndex = random.Next(0, polymerChain.MaxCapacity-1);
+                Bead randomBead = polymerChain[randomIndex];
+
+                Point2d previousLoc = new Point2d(randomBead.Location.X, randomBead.Location.Y);
+                double previousPot = polymerChain.GetPotential(randomBead);
                 
-                // calculate its potential
-                double potentialBefore = polymerChain.GetPotential(bead);                
-                
-                // propose a new location for the chosed bead.
-                Point2d newLocation = bead.GetRandomPoint(polymerChain.BeadDistance);
-                
-                // obtain new potential of the bead.
+                Point2d newLocation = randomBead.GetRandomPoint(polymerChain.BeadDistance);
+                randomBead.SetLocation(newLocation);
                 double potentialAfter = polymerChain.GetPotential(newLocation);
 
-                if (potentialBefore > potentialAfter)
+                double energyDifferenceDouble = potentialAfter - previousPot;
+
+                if (energyDifferenceDouble < 0)  // e_before > e_after
                 {
-                    //move to new location
-                    bead.SetLocation(newLocation);
+                    //pass
+                    //stringList.Add("A");
                 }
                 else
                 {
-                    //apply monte carlo condition
-                    Random monteRandom = Global.Random;
-                    double randDouble = monteRandom.NextDouble();
+                    double randomDouble = Global.Random.Next();
 
-                    if (Math.Exp(-(potentialAfter - potentialBefore) / Global.Temperature_T) > randDouble)
+                    double montecarlo = Math.Exp((-1) * (energyDifferenceDouble) / (Global.Temperature_T));
+
+                    if (montecarlo > randomDouble)
                     {
-                        //move to new location
-                        bead.SetLocation(newLocation);
+                        //pass
+                        //stringList.Add("B");
                     }
                     else
                     {
-                        //do nothing
+                        ///////////////////////////////////////////////////////
+                        randomBead.SetLocation(previousLoc);
+                        ////////////////////////////////////////////////////////
                     }
                 }
             }

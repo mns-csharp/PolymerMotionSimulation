@@ -36,6 +36,11 @@ namespace PolymerMotionSimulation
                 + ((otherPoint.Y - Y) * (otherPoint.Y - Y));
         }
 
+        public Point2d GetTranslated(double x, double y)
+        {
+            return GetTranslated(new Point2d(x, y));
+        }
+
         public Point2d GetTranslated(Point2d center)
         {
             return new Point2d(X + center.X, Y + center.Y);

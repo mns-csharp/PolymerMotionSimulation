@@ -11,20 +11,44 @@ namespace PolymerMotionSimulation
         #region properties
         public int MaxCapacity { get; private set; }
         public double BeadDistance { get; private set; }
-        private List<Bead> beadsList = null; 
+        private List<Bead> beadsList = null;
         #endregion
+
+        public int Count
+        {
+            get { return beadsList.Count; }
+        }
+
+        public PolymerChain()
+        {
+            beadsList = new List<Bead>();
+            MaxCapacity = 4;
+            BeadDistance = 3.8;
+
+            beadsList.Add(new Bead("AA",1.67, 1.67));
+            beadsList.Add(new Bead("BB",1.67, 3.33));//this index selected
+            beadsList.Add(new Bead("CC",3.33, 1.67));
+            beadsList.Add(new Bead("DD",3.33, 3.33));
+        }
 
         #region PolymerChain(int maxBeads, double beadDistance)
         public PolymerChain(int maxBeads, double beadDistance)
         {
-            beadsList = new List<Bead>();
+            if (beadsList != null)
+            {
+                beadsList.Clear();
+            }
+            else
+            {
+                beadsList = new List<Bead>();
+            }
+
             MaxCapacity = maxBeads;
             BeadDistance = beadDistance;
-
         } 
         #endregion
 
-        #region void AddBead(string name)
+        #region void Add(string name)
         public void Add(string name)
         {
             if (beadsList.Count >= MaxCapacity)
@@ -76,86 +100,56 @@ namespace PolymerMotionSimulation
         public Bead this[int index]
         {
             get { return beadsList[index]; }
-        } 
+        }
         #endregion
 
-        #region double GetPotential(Bead bead)
-        public double GetPotential(Bead bead)
+        #region double GetPotential(Bead currentBead)
+        public double GetPotential(Bead currentBead)
         {
-            double potential = GetPotential(bead.Location);
-
-            return potential;
-        } 
-        #endregion
-
-        #region double GetPotential(Point2d newPosition)
-        public double GetPotential(Point2d newPosition)
-        {
-            double potential = 0;
+            double beadPotential = 0;
+            double harmonicPotential = 0;
             for (int i = 0; i < beadsList.Count; i++)
             {
-                Bead item = beadsList[i];
-                if (item.Location != newPosition)
+                Bead otherBead = beadsList[i];
+
+                if (currentBead.Location != otherBead.Location)
                 {
-                    potential += item.GetPairPotential(newPosition);
+                    beadPotential += currentBead.GetPairPotential(otherBead);
                 }
                 else
                 {
                     try
                     {
-                        potential += item.GetHarmonicPotential(newPosition);
+                        harmonicPotential += currentBead.GetHarmonicPotential(beadsList[i - 1]);
                     }
                     catch { }
 
                     try
                     {
-                        potential += item.GetHarmonicPotential(beadsList[i + 1]);
+                        harmonicPotential += currentBead.GetHarmonicPotential(beadsList[i + 1]);
                     }
                     catch { }
                 }
             }
 
-            return potential;
+            double total = beadPotential + harmonicPotential;
+
+            return total;
         } 
         #endregion
 
         #region double GetTotalPotential()
         public double GetTotalPotential()
         {
-            double totalBeadPotential = 0.0;
-            double totalSpringPotential = 0.0;
+            double total = 0;
 
-            // calculate total bead-energy
-            for (int i = 0; i < beadsList.Count; i++)
+            double temp_total = 0;
+            foreach (Bead item in beadsList)
             {
-                Bead item_i = beadsList[i];
-                Bead item_i_plus_1 = null;
-
-                try
-                {
-                    item_i_plus_1 = beadsList[i + 1];
-
-                    if (i != beadsList.Count - 1)
-                    {
-                        // calculate total spring energy.
-                        totalSpringPotential += item_i.GetHarmonicPotential(item_i_plus_1);
-                    }
-                }
-                catch { }
-
-                for (int j = 0; j < beadsList.Count; j++)
-                {
-                    if (i != j)
-                    {
-                        Bead item_j = beadsList[j];
-                        totalBeadPotential += item_i.GetPairPotential(item_j);
-                        //Console.Write(totalBeadPotential + "\n");
-                        //Thread.Sleep(100);
-                    }
-                }
+                temp_total=GetPotential(item);
+                total += temp_total;
             }
-
-            return totalBeadPotential + totalSpringPotential;
+            return total;
         } 
         #endregion
 
@@ -174,10 +168,12 @@ namespace PolymerMotionSimulation
         }
         #endregion
 
+        #region List<Bead> GetList()
         public List<Bead> GetList()
         {
             return new List<Bead>(beadsList);
-        }
+        } 
+        #endregion
 
         #region override string ToString()
         public override string ToString()
