@@ -25,7 +25,7 @@ namespace PolymerMotionSimulationConsoleApp
                 double previousPot = chain.GetPotential(bead);//get the existing bead potential
 
                 Point2d newLocation = bead.GetRandomPoint(chain.BeadDistance);//get a new point at a distance
-                chain.Move(index, newLocation);//move the bead to the new position
+                chain.MoveBead(index, newLocation);//move the bead to the new position
                 double afterPot = chain.GetPotential(newLocation);//get the potential of the new position
 
                 double energyDiff = afterPot - previousPot;//difference
@@ -48,7 +48,7 @@ namespace PolymerMotionSimulationConsoleApp
                     else
                     {
                         ///////////////////////////////////////////////////////
-                        chain.Move(index, previousLoc);
+                        chain.MoveBead(index, previousLoc);
                         sectionExecuted = "N";
                         ////////////////////////////////////////////////////////
                     }

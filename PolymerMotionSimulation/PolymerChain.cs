@@ -70,6 +70,8 @@ namespace PolymerMotionSimulation
                 if (listOfBeads.Count <= 0)
                 {
                     newBead.SetLocation(new Point2d(0, 0));
+                    Point2d newLocation = newBead.GetRandomPoint(BeadDistance);
+                    newBead.SetLocation(newLocation);
                 }
                 else
                 {
@@ -79,7 +81,6 @@ namespace PolymerMotionSimulation
                         lastBead = listOfBeads[listOfBeads.Count - 1];
 
                         Point2d newLocation = lastBead.GetRandomPoint(BeadDistance);
-
                         newBead.SetLocation(newLocation);
                     }
                     while (listOfBeads.Contains(newBead) || listOfPoints.Contains(newBead.Location));
@@ -141,17 +142,19 @@ namespace PolymerMotionSimulation
             double total = beadPotential + harmonicPotential;
 
             return total;
-        } 
+        }
         #endregion
 
-        public void Move(int index, Point2d newLocation)
+        #region void MoveBead(int index, Point2d newLocation)
+        public void MoveBead(int index, Point2d newLocation)
         {
             if (!listOfPoints.Contains(newLocation))
             {
                 listOfBeads[index].SetLocation(newLocation);
                 listOfPoints[index] = newLocation;
             }
-        }
+        } 
+        #endregion
 
         #region double GetTotalPotential()
         public double GetTotalPotential()
