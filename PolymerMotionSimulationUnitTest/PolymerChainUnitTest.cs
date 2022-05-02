@@ -10,7 +10,11 @@ namespace PolymerMotionSimulationUnitTest
         [TestMethod]
         public void GetTotalPotential__Test()
         {
-            PolymerChain chain = new PolymerChain();
+            PolymerChain chain = new PolymerChain(4, 3.8);
+            chain.Add("AA", 1.67, 1.67);
+            chain.Add("BB", 1.67, 3.33);
+            chain.Add("CC", 3.33, 1.67);
+            chain.Add("DD", 3.33, 3.33);
 
             double totalPot = Math.Round(chain.GetTotalPotential(), 2);
 
@@ -20,7 +24,11 @@ namespace PolymerMotionSimulationUnitTest
         [TestMethod]
         public void GetPotential__Test()
         {
-            PolymerChain chain = new PolymerChain();
+            PolymerChain chain = new PolymerChain(4, 3.8);
+            chain.Add("AA", 1.67, 1.67);
+            chain.Add("BB", 1.67, 3.33);
+            chain.Add("CC", 3.33, 1.67);
+            chain.Add("DD", 3.33, 3.33);
 
             Bead bead0 = chain[0];
             double pot0 = Math.Round(chain.GetPotential(bead0), 2);
@@ -42,8 +50,13 @@ namespace PolymerMotionSimulationUnitTest
         [TestMethod]
         public void DefaultConstructor__Test()
         {
-            PolymerChain chain = new PolymerChain();
-            Assert.AreEqual(chain.MaxCapacity, 4);
+            PolymerChain chain = new PolymerChain(4, 3.8);
+            chain.Add("AA", 1.67, 1.67);
+            chain.Add("BB", 1.67, 3.33);
+            chain.Add("CC", 3.33, 1.67);
+            chain.Add("DD", 3.33, 3.33);
+
+            Assert.AreEqual(chain.Capacity, 4);
             Assert.AreEqual(chain.BeadDistance, 3.8);
             Assert.AreEqual(chain.Count, 4);
             Assert.AreEqual(chain[0], new Bead("AA", 1.67, 1.67));

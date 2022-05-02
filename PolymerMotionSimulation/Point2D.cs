@@ -59,9 +59,9 @@ namespace PolymerMotionSimulation
         {
             StringBuilder sb = new StringBuilder();
 
-            string format = string.Format("({0:0.00}, {1:0.00})", X, Y);
+            sb.AppendFormat("({0:0.00}, {1:0.00})", X, Y);
 
-            sb.Append(format);
+            //sb.AppendFormat("({0,20}, {1,20})", X, Y);
 
             return sb.ToString();
         }
@@ -75,7 +75,7 @@ namespace PolymerMotionSimulation
         }
         public bool Equals(Point2d other)
         {
-            return X == other.X && Y == other.Y;
+            return Math.Round(X, 2) == Math.Round(other.X, 2) && Math.Round(Y,2) == Math.Round(other.Y, 2);
         }
         public override int GetHashCode()
         {
@@ -90,5 +90,7 @@ namespace PolymerMotionSimulation
             return !a1.Equals(a2);
         }
         #endregion
+
+
     }
 }
