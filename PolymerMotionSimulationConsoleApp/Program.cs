@@ -12,53 +12,79 @@ namespace PolymerMotionSimulationConsoleApp
         static void Main(string[] args)
         {
             PolymerChain chain = new PolymerChain(Global.PolymerSize_N, Global.MaxAtomDist);
-            chain.LoadBeadsToPolymer();
+            chain.InitializeBeads();
 
             StringBuilder sb = new StringBuilder();
 
-            for (int i = 0; i < 100; i++)
+            int index = 0;
+            Bead bead = null;
+            double previousPot = 0;
+            double afterPot = 0;
+            string IsMoved = string.Empty;
+
+            sb.AppendFormat("{0,10}\t{1,10}\t{2,25}\t{3,25}\t{4,25}\t{5,10}\t{6,25}\t{7,25}\n", 
+                "SN", "Index", "BeadLoc", "PreviousPot", "AfterPot", "IsMoved", "Total Pot", "chain");
+            TextWriter.Write("polymer_data.txt", sb.ToString());
+
+            Console.WriteLine("START");
+
+            for (int i = 0; i < 1000; i++)
             {
-                int index = Global.Random.Next(0, chain.Count);// obtain a random index
-                Bead bead = chain[index];//obtain a random bead from the index
-
-                Point2d previousLoc = new Point2d(bead.Location.X, bead.Location.Y);//copy the point
-                double previousPot = chain.GetPotential(bead);//get the existing bead potential
-
-                Point2d newLocation = bead.GetRandomPoint(chain.BeadDistance);//get a new point at a distance
-                chain.MoveBead(index, newLocation);//move the bead to the new position
-                double afterPot = chain.GetPotential(newLocation);//get the potential of the new position
-
-                double energyDiff = afterPot - previousPot;//difference
-
-                string sectionExecuted = "";
-                if (energyDiff < 0)
+                for (int j = 0; j < 100; j++)
                 {
-                    sectionExecuted = "Y";
-                }
-                else
-                {
-                    double randomDouble = Global.Random.NextDouble();
+                    index = Global.Random.Next(0, chain.Count);// obtain a random index
+                    bead = chain[index];//obtain a random bead from the index
 
-                    double monteCarlo = Math.Exp((-1) * (energyDiff) / (Global.Temperature_T));
+                    Point2d previousLoc = new Point2d(bead.Location.X, bead.Location.Y);//copy the point
+                    previousPot = chain.GetPotential(bead);//get the existing bead potential
 
-                    if (monteCarlo > randomDouble)
+                    Point2d newLocation = bead.GetRandomPoint(chain.BeadDistance);//get a new point at a distance
+                    chain.MoveBead(index, newLocation);//move the bead to the new position
+                    afterPot = chain.GetPotential(newLocation);//get the potential of the new position
+
+                    double energyDiff = afterPot - previousPot;//difference
+
+                    
+                    if (energyDiff < 0)
                     {
-                        sectionExecuted = "Y";
+                        IsMoved = "Y";
                     }
                     else
                     {
-                        ///////////////////////////////////////////////////////
-                        chain.MoveBead(index, previousLoc);
-                        sectionExecuted = "N";
-                        ////////////////////////////////////////////////////////
-                    }
+                        double randomDouble = Global.Random.NextDouble();
+
+                        double monteCarlo = Math.Exp((-1) * (energyDiff) / (Global.Temperature_T));
+
+                        if (monteCarlo > randomDouble)
+                        {
+                            IsMoved = "Y";
+                        }
+                        else
+                        {
+                            ///////////////////////////////////////////////////////
+                            chain.MoveBead(index, previousLoc);
+                            IsMoved = "N";
+                            ////////////////////////////////////////////////////////
+                        }
+                    }                    
                 }
 
-                sb.AppendFormat("{0,3}\t{1,3}\t{2,20}\t{3,30}\t{4,30}\t{5}\t{6,20}\t{7}\n", i, index, bead.ToString(), previousPot, afterPot, sectionExecuted, chain.GetTotalPotential(), chain.ToString());
-                Console.WriteLine(sb.ToString());
-                TextWriter.Write("polymer_data.txt", sb.ToString());
                 sb.Clear();
+
+                string prevPotStr = string.Format("{0:0.00}", previousPot);
+                string aftrPotStr = string.Format("{0:0.00}", afterPot);
+                string totlPotStr = string.Format("{0:0.00}", chain.GetTotalPotential());
+
+                sb.AppendFormat("{0,10}\t{1,10}\t{2,25}\t{3,25}\t{4,25}\t{5,10}\t{6,25}\t{7,25}\n", 
+                    i, index, bead.ToString(), prevPotStr, aftrPotStr, IsMoved,
+                    totlPotStr, chain.ToString());
+                
+                TextWriter.Write("polymer_data.txt", sb.ToString());
+
+                //Console.WriteLine("{0}, ", i);             
             }
+
+            Console.WriteLine("END");
 
             //PolymerChain chain = new PolymerChain();
             //chain.Capacity = 4;

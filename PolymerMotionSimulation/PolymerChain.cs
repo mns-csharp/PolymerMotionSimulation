@@ -58,7 +58,7 @@ namespace PolymerMotionSimulation
         #endregion
 
         #region void InitRandomBeads()
-        public void LoadBeadsToPolymer()
+        public void InitializeBeads()
         {
             listOfBeads.Clear();
 

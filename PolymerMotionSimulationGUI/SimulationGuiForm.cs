@@ -3,6 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using ZedGraph;
@@ -14,23 +15,30 @@ namespace PolymerMotionSimulationGUI
         private int x = 0;
         private int y = 0;
         public static PolymerChain polymerChain;
+        private static Simulation simulation;
         private Thread t;
-        private readonly BlockingCollection<PolymerChain> SimulationResults = 
-            new BlockingCollection<PolymerChain>(1000); // limit to 1000 - producer will wait until consumed
-        private PointPairList ppList = new PointPairList();
-        
+        private PointPairList pointPairList = new PointPairList();
 
+        // limit to 1000 - producer will wait until consumed
+        private readonly BlockingCollection<PolymerChain> blockingCollection 
+            = new BlockingCollection<PolymerChain>(1000);
+        
         public SimulationGuiForm()
         {
             InitializeComponent();
 
-            DrawBlackCanvas();
+            polymerChain = new PolymerChain(Global.PolymerSize_N, Global.MaxAtomDist);
+            polymerChain.InitializeBeads();
 
-            zedGraphControl1.GraphPane.AddCurve("", ppList, Color.Red, SymbolType.None);
+            simulation = new Simulation();
+            simulation.PolymerChain = polymerChain;
+            simulation.WritetoFileSteps = Global.WriteToFileSteps;
 
-            polymerChain = new PolymerChain();
             t = new Thread(new ThreadStart(RunSimulationThread));
             t.Start();
+
+            DrawBlackCanvas();
+            zedGraphControl1.GraphPane.AddCurve("", pointPairList, Color.Red, SymbolType.None);             
             textBox1.Text = "START" + "\r\n";
         }
         protected void Abort_Click(object sender, EventArgs e)
@@ -43,22 +51,24 @@ namespace PolymerMotionSimulationGUI
         }
 
         public void RunSimulationThread()
-        {            
-            //for (int i = 0; i < pol; i++)
-            //{
-            //    string name = RandomStringGen.GetRandomString();
-            //    polymerChain.Add(name);
-            //}
+        {
+            StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < (Global.SimulationSteps / Global.WriteToFileSteps); i++)
             {
-                Simulation.SimulateMotion(polymerChain, Global.WriteToFileSteps);
+                simulation.SimulateMotion();
                 // save the generated result,
                 // obviously will save only the "written to file" iterations 
-                SimulationResults.Add(polymerChain); 
+                blockingCollection.Add(polymerChain);
+
+                //print to a text file
+                sb.AppendFormat("{0,3}\t{1,3}\t{2,20}\t{3,30}\t{4,30}\t{5}\t{6,20}\t{7}\n", i, simulation.Index, simulation.Bead, simulation.PrevPotential, simulation.AfterPotential, simulation.IsMoved, simulation.TotalPotential, polymerChain.ToString());
+                Console.WriteLine(sb.ToString());
+                TextWriter.Write("polymer_data.txt", sb.ToString());
+                sb.Clear();
             }
             
-            SimulationResults.CompleteAdding(); // signal that simulation has finished
+            blockingCollection.CompleteAdding(); // signal that simulation has finished
         }
 
         void DrawBlackCanvas()
@@ -96,7 +106,7 @@ namespace PolymerMotionSimulationGUI
         {
             // try getting next simulation from the saved (if there are any)
             PolymerChain currPolymerChain;
-            if (!SimulationResults.IsCompleted && SimulationResults.TryTake(out currPolymerChain))
+            if (!blockingCollection.IsCompleted && blockingCollection.TryTake(out currPolymerChain))
             {
                 DrawPolymerChain(currPolymerChain); // pass the fetched simulation to draw it
 
@@ -112,7 +122,7 @@ namespace PolymerMotionSimulationGUI
         int totalX = 0;
         void DrawZGraph(double totalPotential)
         {
-            ppList.Add(totalX++, totalPotential);  
+            pointPairList.Add(totalX++, totalPotential);  
 
             zedGraphControl1.AxisChange();
             zedGraphControl1.Invalidate();
