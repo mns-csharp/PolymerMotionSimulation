@@ -24,7 +24,7 @@ namespace PolymerMotionSimulation
             double x = Math.Cos(angle) * radius;
             double y = Math.Sin(angle) * radius;
 
-            return new double[] {x, y};
+            return new double[] { currentX+x, currentY+y };
         }
     
         public static double LennardJonesPairPotential(double sigma, double epsilon, double rad)
