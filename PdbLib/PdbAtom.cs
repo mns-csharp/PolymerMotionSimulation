@@ -8,8 +8,6 @@ namespace PdbLib
 {
     public class PdbAtom
     {
-        //ATOM     10  CB BTHR A   1       4.850 -11.840  18.069  0.25  9.70           C  
-        
         public int AtomNo { get; set; }
         public string AtomType { get; set; }
         public string ResidueType { get; set; }
