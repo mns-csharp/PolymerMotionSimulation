@@ -14,11 +14,16 @@ namespace PdbLib
         public Compound CMPND { get; set; }
         public Source SOURCE { get; set; }
         public SequenceOfResidue SEQRES { get; set; }
-        private List<PdbAtom> ATOMs;
+        private List<PdbAtom> ATOMs__;
+
+        public List<PdbAtom> GetAtomsList()
+        {
+            return new List<PdbLib.PdbAtom>(ATOMs__);
+        }
 
         public PdbFile()
         {
-            ATOMs = new List<PdbLib.PdbAtom>();
+            ATOMs__ = new List<PdbLib.PdbAtom>();
         }
 
         public static PdbFile FromFile(string fileName)
@@ -59,7 +64,7 @@ namespace PdbLib
                     }
                 }
 
-                pdbFile.ATOMs = atoms;
+                pdbFile.ATOMs__ = atoms;
             }
             catch (Exception ex)
             {

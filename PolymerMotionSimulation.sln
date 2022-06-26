@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdbLib", "PdbLib\PdbLib.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdbLibFileApp", "PdbLibFileApp\PdbLibFileApp.csproj", "{A5CA415B-9E71-45EF-B3AB-EB0387AE6F5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenGLGuiApp", "OpenGLGuiApp\OpenGLGuiApp.csproj", "{E049BB02-0E2F-44E6-B083-AF534051F321}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{A5CA415B-9E71-45EF-B3AB-EB0387AE6F5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5CA415B-9E71-45EF-B3AB-EB0387AE6F5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5CA415B-9E71-45EF-B3AB-EB0387AE6F5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E049BB02-0E2F-44E6-B083-AF534051F321}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E049BB02-0E2F-44E6-B083-AF534051F321}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E049BB02-0E2F-44E6-B083-AF534051F321}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E049BB02-0E2F-44E6-B083-AF534051F321}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

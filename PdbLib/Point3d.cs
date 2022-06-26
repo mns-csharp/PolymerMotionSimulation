@@ -13,6 +13,20 @@ namespace PdbLib
         public double Y { get; set; }
         public double Z { get; set; }
 
+        public Point3d()
+        {
+            X = 0;
+            Y = 0;
+            Z = 0;
+        }
+
+        public Point3d(double x, double y, double z)
+        {
+            X = x;
+            Y = y;
+            Z = z;
+        }
+
         public Point3d(string x, string y, string z)
         {
             X = Convert.ToDouble(x);
