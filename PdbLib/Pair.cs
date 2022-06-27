@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace PdbLib
 {
-    public class Pair
+    public class Pair<T1, T2>
     {
-        public string First { get; set; }
-        public string Second { get; set; }
+        public T1 First { get; set; }
+        public T2 Second { get; set; }
 
         public Pair()
         { }
 
-        public Pair(string first, string second)
+        public Pair(T1 first, T2 second)
         {
             First = first;
             Second = second;

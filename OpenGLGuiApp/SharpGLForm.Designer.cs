@@ -43,9 +43,7 @@
             this.openGLControl.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
             this.openGLControl.Size = new System.Drawing.Size(624, 391);
             this.openGLControl.TabIndex = 0;
-            this.openGLControl.OpenGLInitialized += new System.EventHandler(this.openGLControl_OpenGLInitialized);
             this.openGLControl.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl_OpenGLDraw);
-            this.openGLControl.Resized += new System.EventHandler(this.openGLControl_Resized);
             // 
             // SharpGLForm
             // 
@@ -55,7 +53,7 @@
             this.Controls.Add(this.openGLControl);
             this.Name = "SharpGLForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SharpGL Form";
+            this.Text = "PDB Viewer Form";
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).EndInit();
             this.ResumeLayout(false);
 

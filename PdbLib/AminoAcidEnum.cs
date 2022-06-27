@@ -161,23 +161,23 @@ namespace PdbLib
         public string Full { get; set; }
         public Color ColorRGB { get; set; }
 
-        private List<Pair> bonds;
+        private List<Pair<string, string>> bonds;
 
         public AminoAcidClass()
         {
-            bonds = new List<Pair>();
+            bonds = new List<Pair<string, string>>();
         }
 
         public AminoAcidClass(string code, string full, Color colorRgb)
         {
-            bonds = new List<Pair>();
+            bonds = new List<Pair<string, string>>();
 
             Code = code;
             Full = full;
             ColorRGB = colorRgb;
         }
 
-        public void AddBond(Pair bond)
+        public void AddBond(Pair<string, string> bond)
         {
             bonds.Add(bond);
         }
@@ -215,163 +215,163 @@ namespace PdbLib
             dictionary = new Dictionary<string, AminoAcidClass>();
 
             AminoAcidClass ALA = new AminoAcidClass("A", "Alanine", Color.FromArgb(1, 140, 255, 140));
-            ALA.AddBond(new Pair("CA", "CB"));
-            ALA.AddBond(new Pair("C", "OXT"));
+            ALA.AddBond(new Pair<string, string>("CA", "CB"));
+            ALA.AddBond(new Pair<string, string>("C", "OXT"));
             dictionary.Add("ALA", ALA);
 
             AminoAcidClass CYS = new AminoAcidClass("C", "Cysteine", Color.FromArgb(255, 255, 112));
-            CYS.AddBond(new Pair("CA", "CB"));
-            CYS.AddBond(new Pair("CB", "SG"));
+            CYS.AddBond(new Pair<string, string>("CA", "CB"));
+            CYS.AddBond(new Pair<string, string>("CB", "SG"));
             dictionary.Add("CYS", CYS);
 
             AminoAcidClass ASP = new AminoAcidClass("D", "Aspartic acid", Color.FromArgb(160, 0, 66));
-            ASP.AddBond(new Pair("CA", "CB"));
-            ASP.AddBond(new Pair("CB", "CG"));
-            ASP.AddBond(new Pair("CG", "OD1"));
-            ASP.AddBond(new Pair("CG", "OD2"));
+            ASP.AddBond(new Pair<string, string>("CA", "CB"));
+            ASP.AddBond(new Pair<string, string>("CB", "CG"));
+            ASP.AddBond(new Pair<string, string>("CG", "OD1"));
+            ASP.AddBond(new Pair<string, string>("CG", "OD2"));
             dictionary.Add("ASP", ASP);
 
             AminoAcidClass GLU = new AminoAcidClass("E", "Glutamic acid", Color.FromArgb(102, 0, 0));
-            GLU.AddBond(new Pair("CA", "CB"));
-            GLU.AddBond(new Pair("CB", "CG"));
-            GLU.AddBond(new Pair("CG", "CD"));
-            GLU.AddBond(new Pair("CD", "OE1"));
-            GLU.AddBond(new Pair("CD", "OE2"));
+            GLU.AddBond(new Pair<string, string>("CA", "CB"));
+            GLU.AddBond(new Pair<string, string>("CB", "CG"));
+            GLU.AddBond(new Pair<string, string>("CG", "CD"));
+            GLU.AddBond(new Pair<string, string>("CD", "OE1"));
+            GLU.AddBond(new Pair<string, string>("CD", "OE2"));
             dictionary.Add("GLU", GLU);
 
             AminoAcidClass PHE = new AminoAcidClass("F", "Phenylalanine", Color.FromArgb(83, 76, 66));
-            PHE.AddBond(new Pair("CA", "CB"));
-            PHE.AddBond(new Pair("CB", "CG"));
-            PHE.AddBond(new Pair("CG", "CD1"));
-            PHE.AddBond(new Pair("CG", "CD2"));
-            PHE.AddBond(new Pair("CD1", "CE1"));
-            PHE.AddBond(new Pair("CD2", "CE2"));
-            PHE.AddBond(new Pair("CE1", "CZ"));
-            PHE.AddBond(new Pair("CE2", "CZ"));
+            PHE.AddBond(new Pair<string, string>("CA", "CB"));
+            PHE.AddBond(new Pair<string, string>("CB", "CG"));
+            PHE.AddBond(new Pair<string, string>("CG", "CD1"));
+            PHE.AddBond(new Pair<string, string>("CG", "CD2"));
+            PHE.AddBond(new Pair<string, string>("CD1", "CE1"));
+            PHE.AddBond(new Pair<string, string>("CD2", "CE2"));
+            PHE.AddBond(new Pair<string, string>("CE1", "CZ"));
+            PHE.AddBond(new Pair<string, string>("CE2", "CZ"));
             dictionary.Add("PHE", PHE);
 
             AminoAcidClass GLY = new AminoAcidClass("G", "Glycine", Color.FromArgb(255, 255, 255));
-            GLY.AddBond(new Pair("C", "OXT"));
+            GLY.AddBond(new Pair<string, string>("C", "OXT"));
             dictionary.Add("GLY", GLY);
 
             AminoAcidClass HIS = new AminoAcidClass("H", "Histidine", Color.FromArgb(112, 112, 255));
-            HIS.AddBond(new Pair("CA", "CB"));
-            HIS.AddBond(new Pair("CB", "CG"));
-            HIS.AddBond(new Pair("CG", "ND1"));
-            HIS.AddBond(new Pair("CG", "CD2"));
-            HIS.AddBond(new Pair("CD2", "NE2"));
-            HIS.AddBond(new Pair("NE2", "CE1"));
-            HIS.AddBond(new Pair("CE1", "ND1"));
+            HIS.AddBond(new Pair<string, string>("CA", "CB"));
+            HIS.AddBond(new Pair<string, string>("CB", "CG"));
+            HIS.AddBond(new Pair<string, string>("CG", "ND1"));
+            HIS.AddBond(new Pair<string, string>("CG", "CD2"));
+            HIS.AddBond(new Pair<string, string>("CD2", "NE2"));
+            HIS.AddBond(new Pair<string, string>("NE2", "CE1"));
+            HIS.AddBond(new Pair<string, string>("CE1", "ND1"));
             dictionary.Add("HIS", HIS);
 
             AminoAcidClass ILE = new AminoAcidClass("I", "Isoleucine", Color.FromArgb(0, 76, 0));
-            ILE.AddBond(new Pair("CA", "CB"));
-            ILE.AddBond(new Pair("CB", "CG1"));
-            ILE.AddBond(new Pair("CB", "CG2"));
-            ILE.AddBond(new Pair("CG1", "CD1"));
+            ILE.AddBond(new Pair<string, string>("CA", "CB"));
+            ILE.AddBond(new Pair<string, string>("CB", "CG1"));
+            ILE.AddBond(new Pair<string, string>("CB", "CG2"));
+            ILE.AddBond(new Pair<string, string>("CG1", "CD1"));
             dictionary.Add("ILE", ILE);
 
             AminoAcidClass LYS = new AminoAcidClass("K", "Lysine", Color.FromArgb(71, 71, 184));
-            LYS.AddBond(new Pair("CA", "CB"));
-            LYS.AddBond(new Pair("CB", "CG"));
-            LYS.AddBond(new Pair("CG", "CD"));
-            LYS.AddBond(new Pair("CD", "CE"));
-            LYS.AddBond(new Pair("CE", "NZ"));
+            LYS.AddBond(new Pair<string, string>("CA", "CB"));
+            LYS.AddBond(new Pair<string, string>("CB", "CG"));
+            LYS.AddBond(new Pair<string, string>("CG", "CD"));
+            LYS.AddBond(new Pair<string, string>("CD", "CE"));
+            LYS.AddBond(new Pair<string, string>("CE", "NZ"));
             dictionary.Add("LYS", LYS);
 
             AminoAcidClass LEU = new AminoAcidClass("L", "Leucine", Color.FromArgb(69, 94, 69));
-            LEU.AddBond(new Pair("CA", "CB"));
-            LEU.AddBond(new Pair("CB", "CG"));
-            LEU.AddBond(new Pair("CG", "CD1"));
-            LEU.AddBond(new Pair("CG", "CD2"));
+            LEU.AddBond(new Pair<string, string>("CA", "CB"));
+            LEU.AddBond(new Pair<string, string>("CB", "CG"));
+            LEU.AddBond(new Pair<string, string>("CG", "CD1"));
+            LEU.AddBond(new Pair<string, string>("CG", "CD2"));
             dictionary.Add("LEU", LEU);
 
             AminoAcidClass MET = new AminoAcidClass("M", "Methionine", Color.FromArgb(184, 160, 66));
-            MET.AddBond(new Pair("CA", "CB"));
-            MET.AddBond(new Pair("CB", "CG"));
-            MET.AddBond(new Pair("CG", "SD"));
-            MET.AddBond(new Pair("SD", "CE"));
+            MET.AddBond(new Pair<string, string>("CA", "CB"));
+            MET.AddBond(new Pair<string, string>("CB", "CG"));
+            MET.AddBond(new Pair<string, string>("CG", "SD"));
+            MET.AddBond(new Pair<string, string>("SD", "CE"));
             dictionary.Add("MET", MET);
 
             AminoAcidClass ASN = new AminoAcidClass("N", "Asparagine", Color.FromArgb(255, 124, 112));
-            ASN.AddBond(new Pair("CA", "CB"));
-            ASN.AddBond(new Pair("CB", "CG"));
-            ASN.AddBond(new Pair("CG", "OD1"));
-            ASN.AddBond(new Pair("CG", "ND2"));
+            ASN.AddBond(new Pair<string, string>("CA", "CB"));
+            ASN.AddBond(new Pair<string, string>("CB", "CG"));
+            ASN.AddBond(new Pair<string, string>("CG", "OD1"));
+            ASN.AddBond(new Pair<string, string>("CG", "ND2"));
             dictionary.Add("ASN", ASN);
 
             AminoAcidClass PRO = new AminoAcidClass("P", "Proline", Color.FromArgb(82, 82, 82));
-            PRO.AddBond(new Pair("CA", "CB"));
-            PRO.AddBond(new Pair("CB", "CG"));
-            PRO.AddBond(new Pair("CG", "CD"));
-            PRO.AddBond(new Pair("CD", "N"));
+            PRO.AddBond(new Pair<string, string>("CA", "CB"));
+            PRO.AddBond(new Pair<string, string>("CB", "CG"));
+            PRO.AddBond(new Pair<string, string>("CG", "CD"));
+            PRO.AddBond(new Pair<string, string>("CD", "N"));
             dictionary.Add("PRO", PRO);
 
             AminoAcidClass GLN = new AminoAcidClass("Q", "Glutamine", Color.FromArgb(255, 76, 76));
-            GLN.AddBond(new Pair("CA", "CB"));
-            GLN.AddBond(new Pair("CB", "CG"));
-            GLN.AddBond(new Pair("CG", "CD"));
-            GLN.AddBond(new Pair("CD", "OE1"));
-            GLN.AddBond(new Pair("CD", "NE2"));
+            GLN.AddBond(new Pair<string, string>("CA", "CB"));
+            GLN.AddBond(new Pair<string, string>("CB", "CG"));
+            GLN.AddBond(new Pair<string, string>("CG", "CD"));
+            GLN.AddBond(new Pair<string, string>("CD", "OE1"));
+            GLN.AddBond(new Pair<string, string>("CD", "NE2"));
             dictionary.Add("GLN", GLN);
 
             AminoAcidClass ARG = new AminoAcidClass("R", "Arginine", Color.FromArgb(0, 0, 124));
-            ARG.AddBond(new Pair("CA", "CB"));
-            ARG.AddBond(new Pair("CB", "CG"));
-            ARG.AddBond(new Pair("CG", "CD"));
-            ARG.AddBond(new Pair("CD", "NE"));
-            ARG.AddBond(new Pair("NE", "CZ"));
-            ARG.AddBond(new Pair("CZ", "NH1"));
-            ARG.AddBond(new Pair("CZ", "NH2"));
+            ARG.AddBond(new Pair<string, string>("CA", "CB"));
+            ARG.AddBond(new Pair<string, string>("CB", "CG"));
+            ARG.AddBond(new Pair<string, string>("CG", "CD"));
+            ARG.AddBond(new Pair<string, string>("CD", "NE"));
+            ARG.AddBond(new Pair<string, string>("NE", "CZ"));
+            ARG.AddBond(new Pair<string, string>("CZ", "NH1"));
+            ARG.AddBond(new Pair<string, string>("CZ", "NH2"));
             dictionary.Add("ARG", ARG);
 
             AminoAcidClass SER = new AminoAcidClass("S", "Serine", Color.FromArgb(255, 112, 66));
-            SER.AddBond(new Pair("CA", "CB"));
-            SER.AddBond(new Pair("CB", "OG"));
+            SER.AddBond(new Pair<string, string>("CA", "CB"));
+            SER.AddBond(new Pair<string, string>("CB", "OG"));
             dictionary.Add("SER", SER);
 
             AminoAcidClass THR = new AminoAcidClass("T", "Threonine", Color.FromArgb(184, 76, 0));
-            THR.AddBond(new Pair("CA", "CB"));
-            THR.AddBond(new Pair("CB", "OG1"));
-            THR.AddBond(new Pair("CB", "CG2"));
+            THR.AddBond(new Pair<string, string>("CA", "CB"));
+            THR.AddBond(new Pair<string, string>("CB", "OG1"));
+            THR.AddBond(new Pair<string, string>("CB", "CG2"));
             dictionary.Add("THR", THR);
 
             AminoAcidClass VAL = new AminoAcidClass("V", "Valine", Color.FromArgb(255, 140, 255));
-            VAL.AddBond(new Pair("CA", "CB"));
-            VAL.AddBond(new Pair("CB", "CG1"));
-            VAL.AddBond(new Pair("CB", "CG2"));
+            VAL.AddBond(new Pair<string, string>("CA", "CB"));
+            VAL.AddBond(new Pair<string, string>("CB", "CG1"));
+            VAL.AddBond(new Pair<string, string>("CB", "CG2"));
             dictionary.Add("VAL", VAL);
 
             AminoAcidClass TRP = new AminoAcidClass("W", "Tryptophan", Color.FromArgb(79, 70, 0));
-            TRP.AddBond(new Pair("CA", "CB"));
-            TRP.AddBond(new Pair("CB", "CG"));
-            TRP.AddBond(new Pair("CG", "CD1"));
-            TRP.AddBond(new Pair("CG", "CD2"));
-            TRP.AddBond(new Pair("CD1", "NE1"));
-            TRP.AddBond(new Pair("NE1", "CE2"));
-            TRP.AddBond(new Pair("CE2", "CD2"));
-            TRP.AddBond(new Pair("CD2", "CE3"));
-            TRP.AddBond(new Pair("CE3", "CZ3"));
-            TRP.AddBond(new Pair("CE2", "CZ2"));
-            TRP.AddBond(new Pair("CZ2", "CH2"));
-            TRP.AddBond(new Pair("CH2", "CZ3"));
+            TRP.AddBond(new Pair<string, string>("CA", "CB"));
+            TRP.AddBond(new Pair<string, string>("CB", "CG"));
+            TRP.AddBond(new Pair<string, string>("CG", "CD1"));
+            TRP.AddBond(new Pair<string, string>("CG", "CD2"));
+            TRP.AddBond(new Pair<string, string>("CD1", "NE1"));
+            TRP.AddBond(new Pair<string, string>("NE1", "CE2"));
+            TRP.AddBond(new Pair<string, string>("CE2", "CD2"));
+            TRP.AddBond(new Pair<string, string>("CD2", "CE3"));
+            TRP.AddBond(new Pair<string, string>("CE3", "CZ3"));
+            TRP.AddBond(new Pair<string, string>("CE2", "CZ2"));
+            TRP.AddBond(new Pair<string, string>("CZ2", "CH2"));
+            TRP.AddBond(new Pair<string, string>("CH2", "CZ3"));
             dictionary.Add("TRP", TRP);
 
 
             AminoAcidClass TYR = new AminoAcidClass("Y", "Tyrosine", Color.FromArgb(140, 112, 76));
-            TYR.AddBond(new Pair("CA", "CB"));
-            TYR.AddBond(new Pair("CB", "CG"));
-            TYR.AddBond(new Pair("CG", "CD1"));
-            TYR.AddBond(new Pair("CG", "CD2"));
-            TYR.AddBond(new Pair("CD1", "CE1"));
-            TYR.AddBond(new Pair("CD2", "CE2"));
-            TYR.AddBond(new Pair("CE1", "CZ"));
-            TYR.AddBond(new Pair("CE2", "CZ"));
-            TYR.AddBond(new Pair("CZ", "OH"));
+            TYR.AddBond(new Pair<string, string>("CA", "CB"));
+            TYR.AddBond(new Pair<string, string>("CB", "CG"));
+            TYR.AddBond(new Pair<string, string>("CG", "CD1"));
+            TYR.AddBond(new Pair<string, string>("CG", "CD2"));
+            TYR.AddBond(new Pair<string, string>("CD1", "CE1"));
+            TYR.AddBond(new Pair<string, string>("CD2", "CE2"));
+            TYR.AddBond(new Pair<string, string>("CE1", "CZ"));
+            TYR.AddBond(new Pair<string, string>("CE2", "CZ"));
+            TYR.AddBond(new Pair<string, string>("CZ", "OH"));
             dictionary.Add("TYR", TYR);
 
             AminoAcidClass UNK = new AminoAcidClass("U", "Unknown", Color.FromArgb(124, 233, 255));
-            UNK.AddBond(new Pair("C", "OXT"));
+            UNK.AddBond(new Pair<string, string>("C", "OXT"));
             dictionary.Add("UNK", UNK);
         }
     }
